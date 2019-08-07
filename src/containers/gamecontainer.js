@@ -15,7 +15,7 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        fetch(`${GAMES_API}1`)
+        fetch(`${GAMES_API}2`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
