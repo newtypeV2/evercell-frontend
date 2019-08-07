@@ -15,10 +15,10 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        fetch(`${GAMES_API}1`)
+        fetch(`${GAMES_API}2`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             this.setState({
                 players: data.character_games,
                 monsters: data.game_monsters,
@@ -48,7 +48,7 @@ class GameContainer extends React.Component{
                             playerObj.x_coordinate+=1
                         }
                         playerObj.character.race = newRace
-                        console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                        // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
                         return playerObj
@@ -75,7 +75,7 @@ class GameContainer extends React.Component{
                             playerObj.x_coordinate-=1
                         }
                         playerObj.character.race = newRace
-                        console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                        // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
                         return playerObj
@@ -95,7 +95,7 @@ class GameContainer extends React.Component{
                             if(this.getUserCharacter().y_coordinate-1 >= 0 && this.getUserCharacter().y_coordinate-1 < this.state.map.y_map_size){
                                 playerObj.y_coordinate-=1
                             }
-                            console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                            // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                             return playerObj
                         }else{
                             return playerObj
@@ -115,7 +115,7 @@ class GameContainer extends React.Component{
                             if(this.getUserCharacter().y_coordinate+1 >= 0 && this.getUserCharacter().y_coordinate+1 < this.state.map.y_map_size){
                                 playerObj.y_coordinate+=1
                             }
-                            console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                            // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                             return playerObj
                         }else{
                             return playerObj
