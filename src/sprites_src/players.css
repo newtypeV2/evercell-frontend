@@ -1,0 +1,132 @@
+/* knight animation */
+
+.knight-idle{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -128px -68px;
+    width: 16px;
+    height: 28px;
+    animation: knight-idle 0.4s steps(4) infinite
+  }
+  
+  .knight-walk{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -68px;
+    width: 16px;
+    height: 28px;
+    animation: knight-walk 0.4s steps(4) infinite
+  }
+  
+  @keyframes knight-idle {
+    from {background-position: -128px -68px;}
+    to {background-position: -192px -68px;}
+  }
+  
+  @keyframes knight-walk {
+    from {background-position: -192px -68px;}
+    to {background-position: -256px -68px;}
+  }
+  
+  
+  /* wizard animation */
+  
+  .wizard-idle{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -128px -164px;
+    width: 16px;
+    height: 28px;
+    animation: wizard-idle 0.4s steps(4) infinite
+  }
+  
+  .wizard-walk{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -164px;
+    width: 16px;
+    height: 28px;
+    animation: wizard-walk 0.4s steps(4) infinite
+  }
+  
+  @keyframes wizard-idle {
+    from {background-position: -128px -164px;}
+    to {background-position: -192px -164px;}
+  }
+  
+  @keyframes wizard-walk {
+    from {background-position: -192px -164px;}
+    to {background-position: -256px -164px;}
+  }
+  
+  
+  /* elf animation */
+  
+  .elf-idle{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -128px -4px;
+    width: 16px;
+    height: 28px;
+    animation: elf-idle 0.4s steps(4) infinite
+  }
+  
+  .elf-walk{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -4px;
+    width: 16px;
+    height: 28px;
+    animation: elf-walk 0.4s steps(4) infinite
+  }
+  
+  @keyframes elf-idle {
+    from {background-position: -128px -4px;}
+    to {background-position: -192px -4px;}
+  }
+  
+  @keyframes elf-walk {
+    from {background-position: -192px -4px;}
+    to {background-position: -256px -4px;}
+  }
+  
+  /* lizard animations */
+  
+  .lizard-idle{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -128px -196px;
+    width: 16px;
+    height: 28px;
+    animation: lizard-idle 0.4s steps(4) infinite
+  }
+  
+  .lizard-walk{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -196px;
+    width: 16px;
+    height: 28px;
+    animation: lizard-walk 0.4s steps(4) infinite
+  }
+  
+  @keyframes lizard-idle {
+    from {background-position: -128px -196px;}
+    to {background-position: -192px -196px;}
+  }
+  
+  @keyframes lizard-walk {
+    from {background-position: -192px -196px;}
+    to {background-position: -256px -196px;}
+  }
+
+
+  /* Modifiers */
+
+  .scaled{
+    transform: scale(1)
+  }
+
+  .mirror{
+    transform: scale(-1,1)
+  }
