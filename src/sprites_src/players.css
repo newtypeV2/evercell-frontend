@@ -14,7 +14,7 @@
   }
   
   /* .knight-walk{ */
-    .knight{
+    .human{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -68px;
