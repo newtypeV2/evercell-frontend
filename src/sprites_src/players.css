@@ -13,7 +13,8 @@
     animation: knight-idle 0.4s steps(4) infinite;
   }
   
-  .knight-walk{
+  /* .knight-walk{ */
+    .knight{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -68px;
@@ -52,7 +53,8 @@
     animation: wizard-idle 0.4s steps(4) infinite;
   }
   
-  .wizard-walk{
+  /* .wizard-walk{ */
+    .wizard{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -164px;
@@ -91,7 +93,8 @@
     animation: elf-idle 0.4s steps(4) infinite;
   }
   
-  .elf-walk{
+  /* .elf-walk{ */
+    .elf{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -4px;
@@ -129,7 +132,8 @@
     animation: lizard-idle 0.4s steps(4) infinite;
   }
   
-  .lizard-walk{
+  /* .lizard-walk{ */
+    .lizard{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -196px;

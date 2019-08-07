@@ -10,7 +10,7 @@ const Tile = (props) => {
             {
                 (props.tileObj && props.characterObj) ? 
                 (props.tileObj.x_coordinate===props.characterObj.x_coordinate && props.tileObj.y_coordinate===props.characterObj.y_coordinate) ?
-                    <Player classType="knight-walk"/> : null
+                    <Player charName={props.characterObj.character.name} classType="knight"/> : null
                 : null
             }
             {/* <div className="display-coords">

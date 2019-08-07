@@ -28,15 +28,49 @@ class GameContainer extends React.Component{
                 description: data.description
             })
         })
+        document.addEventListener('keydown', this.testHandler);
     }
 
     testHandler = (e) => {
-        debugger
+        switch(e.key){
+            case "ArrowRight":
+                if(this.state.character.x_coordinate+1 >= 0 && this.state.character.x_coordinate+1 < this.state.map.x_map_size){
+                    this.setState({
+                        character: {...this.state.character,x_coordinate: this.state.character.x_coordinate + 1}
+                    })
+                    document.getElementById(this.state.character.character.name).classList.remove("mirror")
+                }
+            break;
+            case "ArrowLeft":
+                if(this.state.character.x_coordinate-1 >= 0 && this.state.character.x_coordinate-1 < this.state.map.x_map_size){
+                    this.setState({
+                        character: {...this.state.character,x_coordinate: this.state.character.x_coordinate - 1}
+                    })
+                    document.getElementById(this.state.character.character.name).classList.add("mirror")
+                }
+            break;
+            case "ArrowUp":
+                    if(this.state.character.y_coordinate-1 >= 0 && this.state.character.y_coordinate-1 < this.state.map.y_map_size){
+                        this.setState({
+                            character: {...this.state.character,y_coordinate: this.state.character.y_coordinate - 1}
+                        })
+                    }
+            break;
+            case "ArrowDown":
+                    if(this.state.character.y_coordinate+1 >= 0 && this.state.character.y_coordinate+1 < this.state.map.y_map_size){
+                        this.setState({
+                            character: {...this.state.character,y_coordinate: this.state.character.y_coordinate + 1}
+                        })
+                    }
+            break;
+            default:
+                break
+        }
     }
     
     render(){
         return(
-            <div >
+            <div>
                 <Screen mapObj={this.state.map} characterObj={this.state.character}/>
                 <PlayerInfoContainer />
             </div>

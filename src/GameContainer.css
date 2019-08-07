@@ -13,10 +13,9 @@
     border: 1px dotted blue;
     padding: .1rem;
     margin-top: 1rem;
-    width: 100%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
-    bottom: 1rem;
     /* position: fixed; */
 }
 
@@ -25,6 +24,6 @@
     display: inline-block;
     position: relative;
     font-size: medium;
-    width: 20rem;
+    width: 10rem;
     margin: 1rem;
 }
