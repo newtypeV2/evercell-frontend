@@ -8,7 +8,6 @@ class GameContainer extends React.Component{
         super(props)
         this.state = {
             players: [],
-            character: {},
             monsters: [],
             map: {},
             description: null
@@ -22,7 +21,6 @@ class GameContainer extends React.Component{
             console.log(data)
             this.setState({
                 players: data.character_games,
-                character: data.character_games.find(characterInstObj => characterInstObj.character.user_id===1),
                 monsters: data.game_monsters,
                 map: data.map,
                 description: data.description
@@ -32,34 +30,101 @@ class GameContainer extends React.Component{
     }
 
     testHandler = (e) => {
+        let newRace
+        let updatePlayers
+        let user_id = 1
         switch(e.key){
+
             case "ArrowRight":
-                if(this.state.character.x_coordinate+1 >= 0 && this.state.character.x_coordinate+1 < this.state.map.x_map_size){
+                newRace = 
+                !this.getUserCharacter().character.race.includes("mirror") ? 
+                this.getUserCharacter().character.race
+                :
+                this.getUserCharacter().character.race.replace(' mirror','')
+
+                updatePlayers = this.state.players.map(playerObj => {
+                    if(playerObj.character.user_id === user_id){
+                        if(this.getUserCharacter().x_coordinate+1 >= 0 && this.getUserCharacter().x_coordinate+1 < this.state.map.x_map_size){
+                            playerObj.x_coordinate+=1
+                        }
+                        playerObj.character.race = newRace
+                        console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                        return playerObj
+                    }else{
+                        return playerObj
+                    }
+                })
+
+                if(this.getUserCharacter().x_coordinate+1 > 0 && this.getUserCharacter().x_coordinate+1 <= this.state.map.x_map_size){
                     this.setState({
-                        character: {...this.state.character,x_coordinate: this.state.character.x_coordinate + 1}
+                        players: updatePlayers
                     })
-                    document.getElementById(this.state.character.character.name).classList.remove("mirror")
                 }
             break;
+
             case "ArrowLeft":
-                if(this.state.character.x_coordinate-1 >= 0 && this.state.character.x_coordinate-1 < this.state.map.x_map_size){
+                newRace = 
+                    !this.getUserCharacter().character.race.includes("mirror") ? 
+                    this.getUserCharacter().character.race + " mirror"
+                    :
+                    this.getUserCharacter().character.race
+
+                updatePlayers = this.state.players.map(playerObj => {
+                    if(playerObj.character.user_id === user_id){
+                        if(this.getUserCharacter().x_coordinate-1 >= 0 && this.getUserCharacter().x_coordinate-1 < this.state.map.x_map_size){
+                            playerObj.x_coordinate-=1
+                        }
+                        playerObj.character.race = newRace
+                        console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                        return playerObj
+                    }else{
+                        return playerObj
+                    }
+                })
+
+                if(this.getUserCharacter().x_coordinate+1 > 0 && this.getUserCharacter().x_coordinate+1 <= this.state.map.x_map_size){
                     this.setState({
-                        character: {...this.state.character,x_coordinate: this.state.character.x_coordinate - 1}
+                        players: updatePlayers
                     })
-                    document.getElementById(this.state.character.character.name).classList.add("mirror")
                 }
             break;
+
             case "ArrowUp":
-                    if(this.state.character.y_coordinate-1 >= 0 && this.state.character.y_coordinate-1 < this.state.map.y_map_size){
+                    updatePlayers = this.state.players.map(playerObj => {
+                        if(playerObj.character.user_id === user_id){
+                            if(this.getUserCharacter().y_coordinate-1 >= 0 && this.getUserCharacter().y_coordinate-1 < this.state.map.y_map_size){
+                                playerObj.y_coordinate-=1
+                            }
+                            console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                            return playerObj
+                        }else{
+                            return playerObj
+                        }
+                    })
+
+                    if(this.getUserCharacter().y_coordinate+1 > 0 && this.getUserCharacter().y_coordinate+1 <= this.state.map.y_map_size){
                         this.setState({
-                            character: {...this.state.character,y_coordinate: this.state.character.y_coordinate - 1}
+                            players: updatePlayers
                         })
                     }
             break;
+
             case "ArrowDown":
-                    if(this.state.character.y_coordinate+1 >= 0 && this.state.character.y_coordinate+1 < this.state.map.y_map_size){
+                    updatePlayers = this.state.players.map(playerObj => {
+                        if(playerObj.character.user_id === user_id){
+                            if(this.getUserCharacter().y_coordinate+1 >= 0 && this.getUserCharacter().y_coordinate+1 < this.state.map.y_map_size){
+                                playerObj.y_coordinate+=1
+                            }
+                            console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+                            return playerObj
+                        }else{
+                            return playerObj
+                        }
+                    })
+
+                    if(this.getUserCharacter().y_coordinate+1 > 0 && this.getUserCharacter().y_coordinate+1 <= this.state.map.y_map_size){
                         this.setState({
-                            character: {...this.state.character,y_coordinate: this.state.character.y_coordinate + 1}
+                            players: updatePlayers
                         })
                     }
             break;
@@ -67,11 +132,16 @@ class GameContainer extends React.Component{
                 break
         }
     }
+
+    /* 1 is currently the only user. */
+    getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id===1))
+    
     
     render(){
         return(
             <div>
-                <Screen mapObj={this.state.map} characterObj={this.state.character}/>
+                
+                <Screen mapObj={this.state.map} characterObj={this.getUserCharacter()}/>
                 <PlayerInfoContainer />
             </div>
         )
