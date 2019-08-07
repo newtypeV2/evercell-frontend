@@ -2,7 +2,7 @@ import React from 'react';
 
 const Player = (props) => {
     return(
-        <div className="">Player 1</div>
+        <span className={props.classType}></span>
     )
 }
 

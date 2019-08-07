@@ -1,5 +1,6 @@
 import React from 'react';
 import Tile from '../components/tiles';
+// import Player from '../components/players';
 
 class Map extends React.Component{
 
@@ -20,22 +21,22 @@ class Map extends React.Component{
     }
 
     generateTiles = (tileArray) =>{
-        return tileArray.map(tileObj => <Tile key={tileObj.id} tileType={tileObj.tile.name} />)
+        return tileArray.map(tileObj => <Tile key={tileObj.id} tileType={tileObj.tile.name} tileObj={tileObj} characterObj={this.props.characterObj}/>)
     }
     
-    generateRow = (x_index) => {
+    generateRow = (y_index) => {
         return(
-            <div className="tilerow" key={`floor${x_index}`}>
-                <Tile tileType="wall_side_mid_left"/>
-                {this.generateTiles(this.props.mapObj.map_tiles.filter(tileObj => tileObj.x_coordinate === x_index))}
-                <Tile tileType="wall_side_mid_right"/>
+            <div className="tilerow" key={`floor${y_index}`}>
+                {/* <Tile tileType="wall_side_mid_left"/> */}
+                {this.generateTiles(this.props.mapObj.map_tiles.filter(tileObj => tileObj.y_coordinate === y_index))}
+                {/* <Tile tileType="wall_side_mid_right"/> */}
             </div>
         )
     }
     
     generateTopWall = (x_index) => {
         return(
-            <div>
+            <div key={`wall-${x_index}`}>
                 <div className="tilerow">
                     {/* "wall_top_mid" is x_index - 2 */}
                     <Tile tileType="wall_side_top_left"/>
@@ -56,17 +57,16 @@ class Map extends React.Component{
 
     generateMap = () => {
         let mapArray = []
-        mapArray.push(this.generateTopWall(this.props.mapObj.x_map_size))
-        for(let x = 0; x < this.props.mapObj.x_map_size; x++){
-            mapArray.push(this.generateRow(x))
+        // mapArray.push(this.generateTopWall(this.props.mapObj.x_map_size))
+        for(let y = 0; y < this.props.mapObj.y_map_size; y++){
+            mapArray.push(this.generateRow(y))
         }
         return mapArray
     }
 
     render(){
         return(
-            <div className="map">
-                
+            <div id="map">
                 {
                     this.props.mapObj.map_tiles ?
                         this.generateMap()

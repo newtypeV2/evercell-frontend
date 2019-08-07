@@ -1,0 +1,30 @@
+#screen{
+    /* border: 1px double cyan; */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#map{
+    /* border: 5px double yellow; */
+}
+
+#playerinfocontainer{
+    border: 1px dotted blue;
+    padding: .1rem;
+    margin-top: 1rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 1rem;
+    /* position: fixed; */
+}
+
+.playercard{
+    border: 1px solid black;
+    display: inline-block;
+    position: relative;
+    font-size: medium;
+    width: 20rem;
+    margin: 1rem;
+}

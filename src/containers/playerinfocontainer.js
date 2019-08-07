@@ -5,8 +5,11 @@ class PlayerInfoContainer extends React.Component{
     
     render(){
         return(
-            <div>
-                <PlayerCard />
+            <div id="playerinfocontainer">
+                <PlayerCard playerInfo="Player 1"/>
+                <PlayerCard playerInfo="Player 2"/>
+                <PlayerCard playerInfo="Player 3"/>
+                <PlayerCard playerInfo="Player 4"/>
             </div>
         )
     }

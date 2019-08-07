@@ -9,6 +9,7 @@ div.tilerow{
     background-position: -16px -0px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_top_mid{
@@ -17,6 +18,7 @@ div.tilerow{
     background-position: -32px -0px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_top_right{
@@ -25,6 +27,7 @@ div.tilerow{
     background-position: -48px -0px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_left{
@@ -33,6 +36,7 @@ div.tilerow{
     background-position: -16px -16px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_mid{
@@ -41,6 +45,7 @@ div.tilerow{
     background-position: -32px -16px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_right{
@@ -49,6 +54,7 @@ div.tilerow{
     background-position: -48px -16px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .floor_1{
@@ -57,6 +63,7 @@ div.tilerow{
     background-position: -16px -64px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_2{
     display: inline-block;
@@ -64,6 +71,7 @@ div.tilerow{
     background-position: -32px -64px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_3{
     display: inline-block;
@@ -71,6 +79,7 @@ div.tilerow{
     background-position: -48px -64px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_4{
     display: inline-block;
@@ -78,6 +87,7 @@ div.tilerow{
     background-position: -16px -80px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_5{
     display: inline-block;
@@ -85,6 +95,7 @@ div.tilerow{
     background-position: -32px -80px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_6{
     display: inline-block;
@@ -92,6 +103,7 @@ div.tilerow{
     background-position: -48px -80px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_7{
     display: inline-block;
@@ -99,6 +111,7 @@ div.tilerow{
     background-position: -16px -96px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 .floor_8{
     display: inline-block;
@@ -106,6 +119,7 @@ div.tilerow{
     background-position: -32px -96px;
     width: 16px;
     height: 16px;
+    position: relative;
 }
 
 .wall_side_top_left{
@@ -113,6 +127,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -0px -112px;
 }
 .wall_side_top_right {
@@ -120,6 +135,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -16px -112px;
 }
 .wall_side_mid_left{
@@ -127,6 +143,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -0px -128px;
 }
 .wall_side_mid_right {
@@ -134,6 +151,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -16px -128px;
 }
 .wall_side_front_left{
@@ -141,6 +159,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -0px -144px;
 }
 .wall_side_front_right {
@@ -148,6 +167,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -16px -144px;
 }
 
@@ -156,6 +176,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -32px -112px
 }
 .wall_corner_top_right{
@@ -163,6 +184,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -48px -112px
 }
 .wall_corner_left{
@@ -170,6 +192,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -32px -128px
 }
 .wall_corner_right{
@@ -177,6 +200,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -48px -128px
 }
 .wall_corner_bottom_left{
@@ -184,6 +208,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -32px -144px
 }
 .wall_corner_bottom_right{
@@ -191,6 +216,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -48px -144px
 }
 .wall_corner_front_left{
@@ -198,6 +224,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -32px -160px
 }
 .wall_corner_front_right{
@@ -205,6 +232,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -48px -160px
 }
 
@@ -213,6 +241,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -80px -128px
 }
 .wall_inner_corner_l_top_right{
@@ -220,6 +249,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -64px -128px
 }
 .wall_inner_corner_mid_left{
@@ -227,6 +257,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -80px -144px
 }
 .wall_inner_corner_mid_right{
@@ -234,6 +265,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -64px -144px
 }
 .wall_inner_corner_t_top_left{
@@ -241,6 +273,7 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -80px -160px
 }
 .wall_inner_corner_t_top_right{
@@ -248,5 +281,15 @@ div.tilerow{
     background-image: url("../assets/DungeonTileSet.png");
     width: 16px;
     height: 16px;
+    position: relative;
     background-position: -64px -160px
+}
+
+.display-coords{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    font-size: 8px;
+    border: 1px solid red;
 }

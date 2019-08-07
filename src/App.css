@@ -31,3 +31,15 @@
     transform: rotate(360deg);
   }
 }
+
+#navbar{
+  border: 2px dotted red;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-family: fantasy;
+  font-size: xx-large;
+  text-align: left;
+}
