@@ -15,9 +15,10 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        fetch(`${GAMES_API}1`)
+        fetch(GAMES_API + "1")
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             this.setState({
                 players: data.character_games,
                 monsters: data.game_monsters,

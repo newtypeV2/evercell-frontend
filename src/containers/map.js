@@ -1,8 +1,14 @@
 import React from 'react';
 import Tile from '../components/tiles';
-// import Player from '../components/players';
+import { MAPS_API } from '../constants';
 
 class Map extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            mapObj : {}
+        }
+    }
 
     generateMid = (x_index, tilestring) => {
         let midArray = []
@@ -35,9 +41,9 @@ class Map extends React.Component{
     
     generateRow = (y_index) => {
         return(
-            <div className="tilerow" key={`floor${y_index}`}>
+            <div className="tilerow" key={`row-${y_index}`}>
                 <Tile tileType="wall_side_mid_left"/>
-                {this.generateTiles(this.props.mapObj.map_tiles.filter(tileObj => tileObj.y_coordinate === y_index))}
+                {this.generateTiles(this.state.mapObj.map_tiles.filter(tileObj => tileObj.y_coordinate === y_index))}
                 <Tile tileType="wall_side_mid_right"/>
             </div>
         )
@@ -66,18 +72,26 @@ class Map extends React.Component{
 
     generateMap = () => {
         let mapArray = []
-        mapArray.push(this.generateTopWall(this.props.mapObj.x_map_size))
-        for(let y = 0; y < this.props.mapObj.y_map_size; y++){
+        mapArray.push(this.generateTopWall(this.state.mapObj.x_map_size))
+        for(let y = 0; y < this.state.mapObj.y_map_size; y++){
             mapArray.push(this.generateRow(y))
         }
         return mapArray
+    }
+
+    componentDidMount = () => {
+        fetch(MAPS_API + this.props.mapObj.id)
+        .then(res => res.json())
+        .then(mapObj => this.setState({
+            mapObj
+        }))
     }
 
     render(){
         return(
             <div id="map">
                 {
-                    this.props.mapObj.map_tiles ?
+                    this.state.mapObj.map_tiles ?
                         this.generateMap()
                         :
                         null
