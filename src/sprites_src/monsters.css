@@ -1,0 +1,53 @@
+.masked_orc{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 800;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -432px -172px;
+    width: 16px;
+    height: 20px;
+    animation: masked_orc-run 0.4s steps(4) infinite;
+}
+
+@keyframes masked_orc-run {
+    from {background-position: -432px -172px;}
+    to {background-position: -496px -172px;}
+  }
+
+.ogre{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 800;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -144px -320px;
+    width: 32px;
+    height: 32px;
+    animation: ogre-run 0.4s steps(4) infinite;
+}
+
+@keyframes ogre-run {
+    from {background-position: -144px -320px;}
+    to {background-position: -272px -320px;}
+  }
+
+.skeleton{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 800;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -432px -80px;
+    width: 16px;
+    height: 16px;
+    animation: skeleton-run 0.4s steps(4) infinite;
+}
+
+@keyframes skeleton-run {
+    from {background-position: -432px -80px;}
+    to {background-position: -496px -80px;}
+  }

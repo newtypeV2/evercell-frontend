@@ -29,21 +29,10 @@ class GameContainer extends React.Component{
     }
 
     daggerStab = () => {
-        if(document.getElementById(`${this.getUserCharacter().character.name} weapon`).className.includes("right")){
             document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
             setTimeout(()=>{
-                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.transform = "rotate(45deg)"
-                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.right = "-.1rem"
                 document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
             },120)
-        }else{
-            document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
-            setTimeout(()=>{
-                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.transform = "rotate(-45deg)scale(-1,1)"
-                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.right = ".7rem"
-                document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
-            },120)
-        }
     }
 
     attackHandler = () => {
@@ -68,23 +57,36 @@ class GameContainer extends React.Component{
                 }
         }
     }
+    
+    //FOR TESTING PURPOSES:
 
     monsterMoveTest = () => {
         const randomMovement = [1,-1,0]
         let newMonsters = this.state.monsters.map(monsterObj => {
             let xValue = randomMovement[Math.floor(Math.random() * Math.floor(2))];
             let yValue = randomMovement[Math.floor(Math.random() * Math.floor(2))];
+
             if(monsterObj.x_coordinate+xValue >=0 && monsterObj.x_coordinate+xValue < this.state.map.x_map_size){
                 monsterObj.x_coordinate+=xValue
             }
+
             if(monsterObj.y_coordinate+yValue >=0 && monsterObj.y_coordinate+yValue < this.state.map.y_map_size){
                 monsterObj.y_coordinate+=yValue
             }
+
             return monsterObj
         })
         this.setState({
             monsters: newMonsters
         })
+    }
+
+    monsterDaggerStab = () => {
+            // document.getElementById("monsterWeapon").classList.add("stab")
+            document.querySelectorAll(".monv").forEach(node => node.classList.add("stab"))
+            setTimeout(()=>{
+                document.querySelectorAll(".monv").forEach(node => node.classList.remove("stab"))
+            },120)
     }
 
     keyDownHandler = (e) => {
@@ -234,6 +236,9 @@ class GameContainer extends React.Component{
             //THIS IS JUST FOR TESTING PURPOSES
             case "KeyP":
                     this.monsterMoveTest();
+            break;
+            case "KeyO":
+                    this.monsterDaggerStab();
             break;
             //THIS IS JUST FOR TESTING PURPOSES
             default:

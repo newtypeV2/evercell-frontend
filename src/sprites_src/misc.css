@@ -212,3 +212,27 @@
     top: .1rem;
     z-index: 800;
 }
+
+.left.monster_ver{
+    transform: rotate(-40deg) scale(-1,1) scale(.7,.7); ;
+    right: .6rem; 
+    top: -.3rem;
+    z-index: 600;
+}
+
+.right.monster_ver{
+    transform: rotate(40deg) scale(-1,1) scale(.7,.7);
+    right: -.3rem; 
+    top: -.3rem;
+    z-index: 600;
+}
+
+.right.stab.monster_ver{
+    transform: rotate(90deg) scale(.7,.7);
+    right: -.3rem
+}
+
+.left.stab.monster_ver{
+    transform: rotate(-90deg) scale(-1,1) scale(.7,.7);
+    right: .9rem;
+}
