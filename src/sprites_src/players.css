@@ -172,3 +172,7 @@
     left: 0;
     bottom: 0;
   }
+
+  .monster{
+    z-index: 500;
+  }

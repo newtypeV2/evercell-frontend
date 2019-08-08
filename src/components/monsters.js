@@ -2,7 +2,7 @@ import React from 'react';
 
 const Monster = (props) => {
     return(
-        <div className={props.monsterType}></div>
+        <div className={`${props.monsterType} monster`}></div>
     )
 }
 

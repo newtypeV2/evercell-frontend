@@ -190,15 +190,15 @@
 }
 
 .right{
-    transform: rotate(90deg);
-    right: .1rem;
+    transform: rotate(45deg);
+    right: -.1rem;
     top: .1rem;
     z-index: 800;
 }
 
 .left{
-    transform: rotate(-90deg) scale(-1,1);
-    left: .1rem;
+    transform: rotate(-45deg) scale(-1,1);
+    left: -.1rem;
     top: .1rem;
     z-index: 800;
 }

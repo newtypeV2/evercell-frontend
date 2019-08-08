@@ -130,13 +130,19 @@ class GameContainer extends React.Component{
             case "Space":
                     
                     if(document.getElementById("weapon").className.includes("right")){
+                        document.getElementById("weapon").style.transform = "rotate(90deg)"
                         document.getElementById("weapon").style.right = "-.3rem"
-                        setTimeout(()=>document.getElementById("weapon").style.right = ".1rem",120)
-                        console.log("STAB RIGHT")
+                        setTimeout(()=>{
+                            document.getElementById("weapon").style.transform = "rotate(45deg)"
+                            document.getElementById("weapon").style.right = "-.1rem"
+                        },120)
                     }else{
+                        document.getElementById("weapon").style.transform = "rotate(-90deg)scale(-1,1)"
                         document.getElementById("weapon").style.left = "-.3rem"
-                        setTimeout(()=>document.getElementById("weapon").style.left = ".1rem",120)
-                        console.log("STAB LEFT")
+                        setTimeout(()=>{
+                            document.getElementById("weapon").style.transform = "rotate(-45deg)scale(-1,1)"
+                            document.getElementById("weapon").style.left = "-.1rem"
+                        },120)
                     }
 
             break;
