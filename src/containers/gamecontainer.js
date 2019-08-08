@@ -33,6 +33,11 @@ class GameContainer extends React.Component{
         let newRace
         let updatePlayers
         let user_id = 1
+
+        /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
+            Currently, the Player turns around and moves 1 tile.
+        */
+
         switch(e.code){
             case "ArrowRight":
                 newRace = 
