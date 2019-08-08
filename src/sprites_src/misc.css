@@ -213,6 +213,9 @@
     z-index: 800;
 }
 
+
+/* monster weapon classes / animation. */
+
 .left.monster_ver{
     transform: rotate(-40deg) scale(-1,1) scale(.7,.7); ;
     right: .6rem; 
