@@ -15,10 +15,10 @@ const Tile = (props) => {
         let monsterOccupant = props.monsterObjs.find(monsterObj => monsterObj.x_coordinate === props.tileObj.x_coordinate && monsterObj.y_coordinate === props.tileObj.y_coordinate);
         
         if(playerOccupant){
-            return <Player charName={playerOccupant.character.name} classType={playerOccupant.character.race}/> 
+            return <Player key={playerOccupant.id} charName={playerOccupant.character.name} classType={playerOccupant.character.race}/> 
             // console.log("MATCH FOUND AT","TILES:","X:",props.tileObj.x_coordinate,"Y:",props.tileObj.y_coordinate)
         }else if(monsterOccupant){
-            return <Monster monsterType="lizard"/>
+            return <Monster key={monsterOccupant.id} monsterType="lizard"/>
             // console.log("MONSTER MONSTER FOUND AT","TILES:","X:",props.tileObj.x_coordinate,"Y:",props.tileObj.y_coordinate)
         }else{
             return null

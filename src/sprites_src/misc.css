@@ -190,7 +190,7 @@
 }
 
 .right{
-    transform: rotate(45deg);
+    transform: rotate(15deg);
     right: -.1rem;
     top: .1rem;
     z-index: 800;
@@ -207,7 +207,7 @@
 }
 
 .left{
-    transform: rotate(-45deg) scale(-1,1);
+    transform: rotate(-15deg) scale(-1,1);
     right: .7rem; 
     top: .1rem;
     z-index: 800;
