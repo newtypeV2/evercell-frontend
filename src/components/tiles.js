@@ -23,13 +23,6 @@ const Tile = (props) => {
         }else{
             return null
         }
-
-        // if(props.tileObj.x_coordinate===props.characterObj.x_coordinate && props.tileObj.y_coordinate===props.characterObj.y_coordinate){
-        //     return <Player charName={props.characterObj.character.name} classType={props.characterObj.character.race}/> 
-        // }else{
-        //     return null
-        // }
-        
     }
 
     return(

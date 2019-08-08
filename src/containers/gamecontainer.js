@@ -26,10 +26,29 @@ class GameContainer extends React.Component{
                 description: data.description
             })
         })
-        document.addEventListener('keydown', this.testHandler);
+        document.addEventListener('keydown', this.keyDownHandler);
     }
 
-    testHandler = (e) => {
+    daggerStab = () => {
+        if(document.getElementById(`${this.getUserCharacter().character.name} weapon`).className.includes("right")){
+            document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
+            setTimeout(()=>{
+                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.transform = "rotate(45deg)"
+                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.right = "-.1rem"
+                document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
+            },120)
+        }else{
+            document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
+            setTimeout(()=>{
+                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.transform = "rotate(-45deg)scale(-1,1)"
+                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).style.right = ".7rem"
+                document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
+            },120)
+        }
+
+    }
+
+    keyDownHandler = (e) => {
         let newRace
         let updatePlayers
         let user_id = 1
@@ -37,6 +56,9 @@ class GameContainer extends React.Component{
         /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
             Currently, the Player turns around and moves 1 tile.
         */
+        //updatePlayers is the prepped new state position of the users character.
+
+        //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
 
         switch(e.code){
             case "ArrowRight":
@@ -48,7 +70,12 @@ class GameContainer extends React.Component{
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === user_id){
-                        if(this.getUserCharacter().x_coordinate+1 >= 0 && this.getUserCharacter().x_coordinate+1 < this.state.map.x_map_size){
+                        //x.coordinate+1 to see if there's more room right.
+                        if(
+                            this.getUserCharacter().x_coordinate+1 >= 0 && 
+                            this.getUserCharacter().x_coordinate+1 < this.state.map.x_map_size &&
+                            !this.getUserCharacter().character.race.includes("mirror")
+                        ){
                             playerObj.x_coordinate+=1
                         }
                         playerObj.character.race = newRace
@@ -59,7 +86,7 @@ class GameContainer extends React.Component{
                     }
                 })
 
-                if(this.getUserCharacter().x_coordinate+1 > 0 && this.getUserCharacter().x_coordinate+1 <= this.state.map.x_map_size){
+                if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
                     this.setState({
                         players: updatePlayers
                     })
@@ -75,7 +102,12 @@ class GameContainer extends React.Component{
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === user_id){
-                        if(this.getUserCharacter().x_coordinate-1 >= 0 && this.getUserCharacter().x_coordinate-1 < this.state.map.x_map_size){
+                        //x.coordinate-1 to see if there's more room left.
+                        if(
+                            this.getUserCharacter().x_coordinate-1 >= 0 && 
+                            this.getUserCharacter().x_coordinate-1 < this.state.map.x_map_size &&
+                            this.getUserCharacter().character.race.includes("mirror")
+                        ){
                             playerObj.x_coordinate-=1
                         }
                         playerObj.character.race = newRace
@@ -86,7 +118,7 @@ class GameContainer extends React.Component{
                     }
                 })
 
-                if(this.getUserCharacter().x_coordinate+1 > 0 && this.getUserCharacter().x_coordinate+1 <= this.state.map.x_map_size){
+                if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
                     this.setState({
                         players: updatePlayers
                     })
@@ -96,6 +128,7 @@ class GameContainer extends React.Component{
             case "ArrowUp":
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === user_id){
+                            //y.coordinate-1 to see if there's more room up.
                             if(this.getUserCharacter().y_coordinate-1 >= 0 && this.getUserCharacter().y_coordinate-1 < this.state.map.y_map_size){
                                 playerObj.y_coordinate-=1
                             }
@@ -106,7 +139,7 @@ class GameContainer extends React.Component{
                         }
                     })
 
-                    if(this.getUserCharacter().y_coordinate+1 > 0 && this.getUserCharacter().y_coordinate+1 <= this.state.map.y_map_size){
+                    if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
                         this.setState({
                             players: updatePlayers
                         })
@@ -116,6 +149,7 @@ class GameContainer extends React.Component{
             case "ArrowDown":
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === user_id){
+                            //y.coordinate+1 to see if there's more room down.
                             if(this.getUserCharacter().y_coordinate+1 >= 0 && this.getUserCharacter().y_coordinate+1 < this.state.map.y_map_size){
                                 playerObj.y_coordinate+=1
                             }
@@ -126,36 +160,21 @@ class GameContainer extends React.Component{
                         }
                     })
 
-                    if(this.getUserCharacter().y_coordinate+1 > 0 && this.getUserCharacter().y_coordinate+1 <= this.state.map.y_map_size){
+                    if(this.getUserCharacter().y_coordinate > 0 && this.getUserCharacter().y_coordinate <= this.state.map.y_map_size){
                         this.setState({
                             players: updatePlayers
                         })
                     }
             break;
             case "Space":
-                    
-                    if(document.getElementById("weapon").className.includes("right")){
-                        document.getElementById("weapon").style.transform = "rotate(90deg)"
-                        document.getElementById("weapon").style.right = "-.3rem"
-                        setTimeout(()=>{
-                            document.getElementById("weapon").style.transform = "rotate(45deg)"
-                            document.getElementById("weapon").style.right = "-.1rem"
-                        },120)
-                    }else{
-                        document.getElementById("weapon").style.transform = "rotate(-90deg)scale(-1,1)"
-                        document.getElementById("weapon").style.left = "-.3rem"
-                        setTimeout(()=>{
-                            document.getElementById("weapon").style.transform = "rotate(-45deg)scale(-1,1)"
-                            document.getElementById("weapon").style.left = "-.1rem"
-                        },120)
-                    }
-
+                    this.daggerStab();
             break;
             
             default:
                 break
         }
     }
+    
 
     /* 1 is currently the only user. */
     getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id===1))

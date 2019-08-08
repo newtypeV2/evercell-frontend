@@ -6,7 +6,7 @@ const Player = (props) => {
         <React.Fragment>
             <span id={props.charName} className={props.classType}>
             </span>
-            <span id="weapon" className={weaponSide}></span>
+            <span id={`${props.charName} weapon`} className={weaponSide}></span>
         </React.Fragment>
     )
 }

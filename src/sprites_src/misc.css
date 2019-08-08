@@ -196,9 +196,19 @@
     z-index: 800;
 }
 
+.right.stab{
+    transform: rotate(90deg);
+    right: -.3rem
+}
+
+.left.stab{
+    transform: rotate(-90deg) scale(-1,1);
+    right: .9rem;
+}
+
 .left{
     transform: rotate(-45deg) scale(-1,1);
-    left: -.1rem;
+    right: .7rem; 
     top: .1rem;
     z-index: 800;
 }
