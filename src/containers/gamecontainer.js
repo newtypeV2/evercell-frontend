@@ -15,9 +15,14 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        fetch(`${GAMES_API}1`)
+        // For fetching, 
+        // 1 -> 10x10 MAP - 1 Char - 3 Monsters
+        // 2 -> 48x16 MAP - 1 Char - 0 Monsters
+        // 3 -> 20x20 MAP - 2 Char - 4 Monsters
+        fetch(`${GAMES_API}3`)
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             this.setState({
                 players: data.character_games,
                 monsters: data.game_monsters,
@@ -43,8 +48,16 @@ class GameContainer extends React.Component{
                     monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
                     monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
                 )
+            let hitPlayer = this.state.players.find(
+                monsterObj => 
+                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
+                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                )
                 if(hitMonster){
                     console.log(hitMonster.monster.name,"-",hitMonster.id, "was hit. Monster was at X:",hitMonster.x_coordinate,"Y:",hitMonster.y_coordinate)
+                }
+                if(hitPlayer){
+                    console.log(hitPlayer.character.name, "was hit. Player was at X:",hitPlayer.x_coordinate,"Y:",hitPlayer.y_coordinate)
                 }
         }else{
             let hitMonster = this.state.monsters.find(
@@ -52,8 +65,16 @@ class GameContainer extends React.Component{
                     monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
                     monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
                 )
+            let hitPlayer = this.state.players.find(
+                monsterObj => 
+                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
+                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                )
                 if(hitMonster){
                     console.log(hitMonster.monster.name,"-",hitMonster.id, "was hit. Monster was at X:",hitMonster.x_coordinate,"Y:",hitMonster.y_coordinate)
+                }
+                if(hitPlayer){ 
+                    console.log(hitPlayer.character.name, "was hit. Player was at X:",hitPlayer.x_coordinate,"Y:",hitPlayer.y_coordinate)
                 }
         }
     }
@@ -93,6 +114,7 @@ class GameContainer extends React.Component{
         let newRace
         let updatePlayers
         let user_id = 1
+        let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== user_id)
 
         /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
             Currently, the Player turns around and moves 1 tile.
@@ -100,7 +122,6 @@ class GameContainer extends React.Component{
         //updatePlayers is the prepped new state position of the users character.
 
         //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
-
         switch(e.code){
             case "ArrowRight":
                 newRace = 
@@ -111,14 +132,18 @@ class GameContainer extends React.Component{
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === user_id){
+                        // console.log(playerObj)
                         //x.coordinate+1 to see if there's more room right.
                         if(
                             //Map limit condition check.
                             this.getUserCharacter().x_coordinate+1 >= 0 && 
                             this.getUserCharacter().x_coordinate+1 < this.state.map.x_map_size &&
-                            //Monster collition check.
+                            //Monster collision check.
                             !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate+1 &&
                              monsterObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
+                            //Player collision check.
+                            !(otherPlayers.find(playerObj => playerObj.x_coordinate===this.getUserCharacter().x_coordinate+1 &&
+                             playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
                             //Turn back condition check.
                             !this.getUserCharacter().character.race.includes("mirror")
                         ){
@@ -153,9 +178,12 @@ class GameContainer extends React.Component{
                             //Map limit condition check.
                             this.getUserCharacter().x_coordinate-1 >= 0 && 
                             this.getUserCharacter().x_coordinate-1 < this.state.map.x_map_size &&
-                            //Monster collition check.
+                            //Monster collision check.
                             !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate-1 &&
                              monsterObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
+                             //Player collision check.
+                            !(otherPlayers.find(playerObj => playerObj.x_coordinate===this.getUserCharacter().x_coordinate-1 &&
+                            playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
                              //Turn back condition check.
                             this.getUserCharacter().character.race.includes("mirror")
                         ){
@@ -184,8 +212,12 @@ class GameContainer extends React.Component{
                                 //Map limit condition check.
                                 this.getUserCharacter().y_coordinate-1 >= 0 &&
                                 this.getUserCharacter().y_coordinate-1 < this.state.map.y_map_size &&
-                                //Monster collition check.
-                                !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate && monsterObj.y_coordinate===this.getUserCharacter().y_coordinate-1))
+                                //Monster collision check.
+                                !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
+                                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate-1)) &&
+                                //Player collision check.
+                                 !(otherPlayers.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
+                                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate-1))
                             ){
                                 playerObj.y_coordinate-=1
                             }
@@ -212,7 +244,10 @@ class GameContainer extends React.Component{
                                 this.getUserCharacter().y_coordinate+1 >= 0 &&
                                 this.getUserCharacter().y_coordinate+1 < this.state.map.y_map_size &&
                                 //Monster collition check.
-                                !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate && monsterObj.y_coordinate===this.getUserCharacter().y_coordinate+1))
+                                !(this.state.monsters.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
+                                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate+1)) &&
+                                !(otherPlayers.find(monsterObj => monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
+                                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate+1))
                             ){
                                 playerObj.y_coordinate+=1
                             }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Monster = (props) => {
-    {/* !!Props to className mapping not FINAL!!! MONSTER WEAPON NEEDS TO BE REVISITED. */}
+    /* !!Props to className mapping not FINAL!!! MONSTER WEAPON NEEDS TO BE REVISITED. */
     
     let weaponSide = props.monsterType.includes("mirror") ? "weapon_rusty_sword monster_ver left" : "weapon_rusty_sword monster_ver right"
     // let weaponSide = "weapon_knife right"
