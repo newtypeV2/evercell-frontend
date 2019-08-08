@@ -26,8 +26,7 @@
     width:  6px;
     height: 13px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  293 18px
-
+    background-position:  -293px -18px;
 }
 .weapon_rusty_sword{
     display: inline-block;
@@ -35,8 +34,7 @@
     width: 10px;
     height: 21px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  307 26px
-
+    background-position:  -307px -26px;
 }
 .weapon_regular_sword{
     display: inline-block;
@@ -44,8 +42,7 @@
     width: 10px;
     height: 21px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  323 26px
-
+    background-position:  -323px -26px;
 }
 .weapon_red_gem_sword{
     display: inline-block;
@@ -53,8 +50,7 @@
     width: 10px;
     height: 21px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  339 26px
-
+    background-position:  -339px -26px;
 }
 .weapon_big_hammer{
     display: inline-block;
@@ -62,8 +58,7 @@
     width: 10px;
     height: 37px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  291 42px
-
+    background-position:  -291px -42px;
 }
 .weapon_hammer{
     display: inline-block;
@@ -71,8 +66,7 @@
     width: 10px;
     height: 24px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  307 55px
-
+    background-position:  -307px -55px;
 }
 .weapon_baton_with_spikes{
     display: inline-block;
@@ -80,8 +74,7 @@
     width: 10px;
     height: 22px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  323 57px
-
+    background-position:  -323px -57px;
 }
 .weapon_mace{
     display: inline-block;
@@ -89,8 +82,7 @@
     width: 10px;
     height: 24px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  339 55px
-
+    background-position:  -339px -55px;
 }
 .weapon_katana{
     display: inline-block;
@@ -98,8 +90,7 @@
     width:  6px;
     height: 29px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  293 82px
-
+    background-position:  -293px -82px;
 }
 .weapon_saw_sword{
     display: inline-block;
@@ -107,8 +98,7 @@
     width: 10px;
     height: 25px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  307 86px
-
+    background-position:  -307px -86px;
 }
 .weapon_anime_sword{
     display: inline-block;
@@ -116,8 +106,7 @@
     width: 12px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position:  322 81px
-
+    background-position:  -322px -81px;
 }
 .weapon_axe{
     display: inline-block;
@@ -125,8 +114,7 @@
     width:  9px;
     height: 21px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -341px -90px
-
+    background-position: -341px -90px;
 }
 .weapon_machete {
     display: inline-block;
@@ -134,8 +122,7 @@
     width:  5px;
     height: 22px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -294px -121px
-
+    background-position: -294px -121px;
 }
 .weapon_cleaver {
     display: inline-block;
@@ -143,8 +130,7 @@
     width:  8px;
     height: 19px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -310px -124px
-
+    background-position: -310px -124px;
 }
 .weapon_duel_sword {
     display: inline-block;
@@ -152,8 +138,7 @@
     width:  9px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -325px -113px
-
+    background-position: -325px -113px;
 }
 .weapon_knight_sword {
     display: inline-block;
@@ -161,8 +146,7 @@
     width: 10px;
     height: 29px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -339px -114px
-
+    background-position: -339px -114px;
 }
 .weapon_golden_sword {
     display: inline-block;
@@ -170,8 +154,7 @@
     width: 10px;
     height: 22px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -291px -153px
-
+    background-position: -291px -153px;
 }
 .weapon_lavish_sword {
     display: inline-block;
@@ -179,8 +162,7 @@
     width: 10px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -307px -145px
-
+    background-position: -307px -145px;
 }
 .weapon_red_magic_staff {
     display: inline-block;
@@ -188,8 +170,7 @@
     width:  8px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -324px -145px
-
+    background-position: -324px -145px;
 }
 .weapon_green_magic_staff {
     display: inline-block;
@@ -197,8 +178,7 @@
     width:  8px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -340px -145px
-
+    background-position: -340px -145px;
 }
 .weapon_spear {
     display: inline-block;
@@ -206,6 +186,19 @@
     width:  6px;
     height: 30px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -293px -177px
+    background-position: -293px -177px;
+}
 
+.right{
+    transform: rotate(90deg);
+    right: .1rem;
+    top: .1rem;
+    z-index: 800;
+}
+
+.left{
+    transform: rotate(-90deg) scale(-1,1);
+    left: .1rem;
+    top: .1rem;
+    z-index: 800;
 }

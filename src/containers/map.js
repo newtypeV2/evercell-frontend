@@ -21,7 +21,16 @@ class Map extends React.Component{
     }
 
     generateTiles = (tileArray) =>{
-        return tileArray.map(tileObj => <Tile key={tileObj.id} tileType={tileObj.tile.name} tileObj={tileObj} characterObj={this.props.characterObj}/>)
+        return tileArray.map(tileObj => 
+            <Tile 
+                key={tileObj.id} 
+                tileType={tileObj.tile.name} 
+                tileObj={tileObj} 
+                characterObj={this.props.characterObj}
+                monsterObjs={this.props.monsterObjs}
+                playerObjs={this.props.playerObjs}
+                user_id={this.props.user_id}
+            />)
     }
     
     generateRow = (y_index) => {

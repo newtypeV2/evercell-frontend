@@ -1,6 +1,6 @@
 import React from 'react';
 import Screen from './screencontainer';
-import PlayerInfoContainer from './playerinfocontainer';
+// import PlayerInfoContainer from './playerinfocontainer';
 import { GAMES_API } from '../constants';
 
 class GameContainer extends React.Component{
@@ -15,7 +15,7 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        fetch(`${GAMES_API}2`)
+        fetch(`${GAMES_API}1`)
         .then(res => res.json())
         .then(data => {
             // console.log(data)
@@ -33,8 +33,7 @@ class GameContainer extends React.Component{
         let newRace
         let updatePlayers
         let user_id = 1
-        switch(e.key){
-
+        switch(e.code){
             case "ArrowRight":
                 newRace = 
                 !this.getUserCharacter().character.race.includes("mirror") ? 
@@ -128,6 +127,20 @@ class GameContainer extends React.Component{
                         })
                     }
             break;
+            case "Space":
+                    
+                    if(document.getElementById("weapon").className.includes("right")){
+                        document.getElementById("weapon").style.right = "-.3rem"
+                        setTimeout(()=>document.getElementById("weapon").style.right = ".1rem",120)
+                        console.log("STAB RIGHT")
+                    }else{
+                        document.getElementById("weapon").style.left = "-.3rem"
+                        setTimeout(()=>document.getElementById("weapon").style.left = ".1rem",120)
+                        console.log("STAB LEFT")
+                    }
+
+            break;
+            
             default:
                 break
         }
@@ -141,8 +154,14 @@ class GameContainer extends React.Component{
         return(
             <div>
                 
-                <Screen mapObj={this.state.map} characterObj={this.getUserCharacter()}/>
-                <PlayerInfoContainer />
+                <Screen 
+                    mapObj={this.state.map} 
+                    monsterObjs={this.state.monsters}
+                    playerObjs={this.state.players}
+                    user_id={1}
+                    characterObj={this.getUserCharacter()}
+                />
+                {/* <PlayerInfoContainer /> */}
             </div>
         )
     }
