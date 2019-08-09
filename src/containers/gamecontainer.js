@@ -120,8 +120,8 @@ class GameContainer extends React.Component{
             Currently, the Player turns around and moves 1 tile.
         */
         //updatePlayers is the prepped new state position of the users character.
-
         //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
+        //Monster Collision, Player Collision and WithinMapChecker can be created as helper methods to replace the conditions so it can be used on the move conditions.
         switch(e.code){
             case "ArrowRight":
                 newRace = 
