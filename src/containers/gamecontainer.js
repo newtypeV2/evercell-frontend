@@ -113,8 +113,7 @@ class GameContainer extends React.Component{
     keyDownHandler = (e) => {
         let newRace
         let updatePlayers
-        let user_id = 1
-        let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== user_id)
+        let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)
 
         /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
             Currently, the Player turns around and moves 1 tile.
@@ -123,6 +122,7 @@ class GameContainer extends React.Component{
         //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
         //Monster Collision, Player Collision and WithinMapChecker can be created as helper methods to replace the conditions so it can be used on the move conditions.
         switch(e.code){
+            
             case "ArrowRight":
                 newRace = 
                 !this.getUserCharacter().character.race.includes("mirror") ? 
@@ -131,7 +131,7 @@ class GameContainer extends React.Component{
                 this.getUserCharacter().character.race.replace(' mirror','')
 
                 updatePlayers = this.state.players.map(playerObj => {
-                    if(playerObj.character.user_id === user_id){
+                    if(playerObj.character.user_id === this.props.userObj.id){
                         // console.log(playerObj)
                         //x.coordinate+1 to see if there's more room right.
                         if(
@@ -172,7 +172,7 @@ class GameContainer extends React.Component{
                     this.getUserCharacter().character.race
 
                 updatePlayers = this.state.players.map(playerObj => {
-                    if(playerObj.character.user_id === user_id){
+                    if(playerObj.character.user_id === this.props.userObj.id){
                         //x.coordinate-1 to see if there's more room left.
                         if(
                             //Map limit condition check.
@@ -206,7 +206,7 @@ class GameContainer extends React.Component{
 
             case "ArrowUp":
                     updatePlayers = this.state.players.map(playerObj => {
-                        if(playerObj.character.user_id === user_id){
+                        if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate-1 to see if there's more room up.
                             if(
                                 //Map limit condition check.
@@ -237,7 +237,7 @@ class GameContainer extends React.Component{
 
             case "ArrowDown":
                     updatePlayers = this.state.players.map(playerObj => {
-                        if(playerObj.character.user_id === user_id){
+                        if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate+1 to see if there's more room down.
                             if(
                                 //Map limit condition check.
@@ -283,7 +283,7 @@ class GameContainer extends React.Component{
     
 
     /* 1 is currently the only user. */
-    getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id===1))
+    getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id ))
     
     
     render(){
@@ -294,7 +294,7 @@ class GameContainer extends React.Component{
                     mapObj={this.state.map} 
                     monsterObjs={this.state.monsters}
                     playerObjs={this.state.players}
-                    user_id={1}
+                    user_id={this.props.userObj.id}
                     characterObj={this.getUserCharacter()}
                 />
                 {/* <PlayerInfoContainer /> */}
