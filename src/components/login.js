@@ -1,7 +1,7 @@
 import React from 'react';
-import {Form, Button} from 'react-bootstrap'
-import {Redirect} from 'react-router-dom'
-import { LOGIN_API } from '../constants'
+import {Form, Button} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
+import { LOGIN_API } from '../constants';
 
 class Login extends React.Component{
     constructor(props){
@@ -43,7 +43,7 @@ class Login extends React.Component{
             return (
                 this.state.loggedIn ? <Redirect to="/characters" /> :
                <div id="loginForm">
-                   <Form>
+                   <Form >
                    <Form.Group controlId="formGroupUsername">
                        <Form.Label>Username:</Form.Label>
                        <Form.Control type="username" name="username" placeholder="Enter username" onChange={this.onChangeHandler} />

@@ -1,7 +1,8 @@
 import React from 'react';
 import Screen from './screencontainer';
 // import PlayerInfoContainer from './playerinfocontainer';
-import { GAMES_API } from '../constants';
+import { GAMES_API, WS_URL } from '../constants';
+import ActionCable from 'actioncable';
 
 class GameContainer extends React.Component{
     constructor(props){
@@ -31,7 +32,24 @@ class GameContainer extends React.Component{
             })
         })
         document.addEventListener('keydown', this.keyDownHandler);
+
+        const cable = ActionCable.createConsumer(WS_URL)
+        this.sub = cable.subscriptions.create('CharacterGameChannel', {
+        received: this.handleReceiveNewData
+    })
     }
+
+    handleReceiveNewData = (model_attr) => {
+        console.log(model_attr)
+        // if (<model-attribute> !== this.state.<your-state>) {
+        //   this.setState({ <model-attribute> })
+        // }
+      }
+    
+      handleChange = e => {
+          debugger
+        // this.setState({ <your-state>: e.target.value })
+      }
 
     daggerStab = () => {
             document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
@@ -124,6 +142,7 @@ class GameContainer extends React.Component{
         switch(e.code){
             
             case "ArrowRight":
+            this.sub.send({test:"HELLO WORLD"})
                 newRace = 
                 !this.getUserCharacter().character.race.includes("mirror") ? 
                 this.getUserCharacter().character.race

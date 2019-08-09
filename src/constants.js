@@ -8,6 +8,14 @@ export const API = `http://${window.location.hostname}:5000/`
     //deployment
 // export const API = ''
 
+    //WS_URL localhost
+// export const WS_URL = 'ws://localhost:5000/cable'
+
+    //flexible WS_URL
+export const WS_URL = `ws://${window.location.hostname}:5000/cable`
+
+    //hardset WS_URL
+// export const WS_URL = "ws://10.113.106.139:3500/cable"
 
 export const GAMES_API = `${API}games/`
 export const LOGIN_API = `${API}login/`
