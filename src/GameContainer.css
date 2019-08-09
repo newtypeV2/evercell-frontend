@@ -3,10 +3,14 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 
 #map{
-    /* border: 5px double yellow; */
+    transform: scale(2,2);
+    position: relative;
+    margin: 0 auto;
+    width: 50%;
 }
 
 #playerinfocontainer{
@@ -16,7 +20,7 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    /* position: fixed; */
+    position: relative;
 }
 
 .playercard{

@@ -1,6 +1,7 @@
 div.tilerow{
     margin: 0px;
     height: 16px;
+    position: relative;
 }
 
 .wall_top_left{

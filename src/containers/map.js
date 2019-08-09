@@ -45,7 +45,7 @@ class Map extends React.Component{
     
     generateTopWall = (x_index) => {
         return(
-            <div key={`wall-${x_index}`}>
+            <div className="tilerow" key={`wall-${x_index}`}>
                 <div className="tilerow">
                     {/* "wall_top_mid" is x_index - 2 */}
                     <Tile tileType="wall_side_top_left"/>
