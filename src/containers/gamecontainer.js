@@ -104,9 +104,9 @@ class GameContainer extends React.Component{
 
     monsterDaggerStab = () => {
             // document.getElementById("monsterWeapon").classList.add("stab")
-            document.querySelectorAll(".monv").forEach(node => node.classList.add("stab"))
+            document.querySelectorAll(".monWeap").forEach(node => node.classList.add("stab"))
             setTimeout(()=>{
-                document.querySelectorAll(".monv").forEach(node => node.classList.remove("stab"))
+                document.querySelectorAll(".monWeap").forEach(node => node.classList.remove("stab"))
             },120)
     }
 

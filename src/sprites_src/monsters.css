@@ -8,6 +8,7 @@
     background-position: -432px -172px;
     width: 16px;
     height: 20px;
+    transform: scale(-1,1);
     animation: masked_orc-run 0.4s steps(4) infinite;
 }
 
@@ -26,6 +27,7 @@
     background-position: -144px -320px;
     width: 32px;
     height: 32px;
+    transform: scale(-1,1);
     animation: ogre-run 0.4s steps(4) infinite;
 }
 
@@ -44,10 +46,15 @@
     background-position: -432px -80px;
     width: 16px;
     height: 16px;
+    transform: scale(-1,1);
     animation: skeleton-run 0.4s steps(4) infinite;
 }
 
 @keyframes skeleton-run {
     from {background-position: -432px -80px;}
     to {background-position: -496px -80px;}
+  }
+
+  .monClass.mirror{
+    transform: scale(1,1);
   }
