@@ -10,7 +10,6 @@ class ScreenContainer extends React.Component{
             <div id="screen">
                 <Map 
                     mapObj={this.props.mapObj} 
-                    characterObj={this.props.characterObj} 
                     monsterObjs={this.props.monsterObjs}
                     playerObjs={this.props.playerObjs}
                     user_id={this.props.user_id}

@@ -163,8 +163,17 @@
     transform: scale(1);
   }
 
-  .mirror{
+  /* .mirror{
     transform: scale(-1,1);
+  } */
+
+  .--facingleft{
+    transform: scale(-1,1);
+  }
+
+  .--facingright{
+    /* //testing purposes */
+    transform: scale(1,1);
   }
 
   .inplay{

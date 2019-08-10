@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Player = (props) => {
-    let weaponSide = props.classType.includes("mirror") ? "weapon_knife left" : "weapon_knife right"
+    let directionFacing = props.characterObj.direction === "right" ? "--facingright" : "--facingleft"
+    let weaponSide = props.characterObj.direction === "right" ? "weapon_knife right" : "weapon_knife left"
     return(
         <React.Fragment>
-            <span id={props.charName} className={props.classType}>
+            <span id={props.charName} className={`${props.classType} ${directionFacing}`}>
             </span>
             <span id={`${props.charName} weapon`} className={weaponSide}></span>
         </React.Fragment>

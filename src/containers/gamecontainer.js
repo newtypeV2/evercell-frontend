@@ -41,7 +41,7 @@ class GameContainer extends React.Component{
 
     handleReceiveNewData = (data) => {
         this.setState({
-            players: data.updatePlayers
+            players: this.state.players.map(playerObj => playerObj.id === data.id ? data : playerObj)
         })
         // if (<model-attribute> !== this.state.<your-state>) {
         //   this.setState({ <model-attribute> })
@@ -61,7 +61,8 @@ class GameContainer extends React.Component{
     }
 
     attackHandler = () => {
-        if(!(this.getUserCharacter().character.race.includes("mirror"))){
+        if((this.getUserCharacter().direction === "right")){
+            // if(!(this.getUserCharacter().character.race.includes("mirror"))){
             // console.log("Damage anyone at X:",this.getUserCharacter().x_coordinate+1,"Y:",this.getUserCharacter().y_coordinate)
             let hitMonster = this.state.monsters.find(
                 monsterObj => 
@@ -131,9 +132,9 @@ class GameContainer extends React.Component{
     }
 
     keyDownHandler = (e) => {
-        let newRace
         let updatePlayers
         let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)
+        let newDirection
 
         /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
             Currently, the Player turns around and moves 1 tile.
@@ -142,13 +143,14 @@ class GameContainer extends React.Component{
         //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
         //Monster Collision, Player Collision and WithinMapChecker can be created as helper methods to replace the conditions so it can be used on the move conditions.
         switch(e.code){
-            
+            //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
-                newRace = 
-                !this.getUserCharacter().character.race.includes("mirror") ? 
-                this.getUserCharacter().character.race
-                :
-                this.getUserCharacter().character.race.replace(' mirror','')
+
+                    // !this.getUserCharacter().character.race.includes("mirror") ? 
+                    // this.getUserCharacter().character.race
+                    // :
+                    // this.getUserCharacter().character.race.replace(' mirror','')
+                newDirection = this.getUserCharacter().direction === "right" ? "left" : "right"
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
@@ -163,13 +165,16 @@ class GameContainer extends React.Component{
                              monsterObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
                             //Player collision check.
                             !(otherPlayers.find(playerObj => playerObj.x_coordinate===this.getUserCharacter().x_coordinate+1 &&
-                             playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
+                             playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) 
+                             && this.getUserCharacter().direction === "right"
                             //Turn back condition check.
-                            !this.getUserCharacter().character.race.includes("mirror")
+                            // !this.getUserCharacter().character.race.includes("mirror")
                         ){
                             playerObj.x_coordinate+=1
+                        }else{
+                            playerObj.direction = newDirection
                         }
-                        playerObj.character.race = newRace
+                        // playerObj.character.race = newRace
                         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
@@ -178,7 +183,8 @@ class GameContainer extends React.Component{
                 })
 
                 if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
-                    this.sub.send({updatePlayers})
+                    // this.sub.send({updatePlayers})
+                    this.sub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
                     this.setState({
                         players: updatePlayers
                     })
@@ -186,11 +192,12 @@ class GameContainer extends React.Component{
             break;
 
             case "ArrowLeft":
-                newRace = 
-                    !this.getUserCharacter().character.race.includes("mirror") ? 
-                    this.getUserCharacter().character.race + " mirror"
-                    :
-                    this.getUserCharacter().character.race
+                newDirection = this.getUserCharacter().direction === "right" ? "left" : "right"
+                // newDirection = 
+                //     !this.getUserCharacter().character.race.includes("mirror") ? 
+                //     this.getUserCharacter().character.race + " mirror"
+                //     :
+                //     this.getUserCharacter().character.race
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
@@ -204,13 +211,15 @@ class GameContainer extends React.Component{
                              monsterObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
                              //Player collision check.
                             !(otherPlayers.find(playerObj => playerObj.x_coordinate===this.getUserCharacter().x_coordinate-1 &&
-                            playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) &&
+                            playerObj.y_coordinate===this.getUserCharacter().y_coordinate)) 
+                            && !(this.getUserCharacter().direction === "right")
                              //Turn back condition check.
-                            this.getUserCharacter().character.race.includes("mirror")
                         ){
                             playerObj.x_coordinate-=1
+                        }else{
+                            playerObj.direction = newDirection
                         }
-                        playerObj.character.race = newRace
+                        // playerObj.character.race = newRace
                         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
@@ -219,7 +228,8 @@ class GameContainer extends React.Component{
                 })
 
                 if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
-                    this.sub.send({updatePlayers})
+                    // this.sub.send({updatePlayers})
+                    this.sub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
                     this.setState({
                         players: updatePlayers
                     })
@@ -251,7 +261,8 @@ class GameContainer extends React.Component{
                     })
 
                     if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
-                        this.sub.send({updatePlayers})
+                        // this.sub.send({updatePlayers})
+                        this.sub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
                         this.setState({
                             players: updatePlayers
                         })
@@ -282,7 +293,8 @@ class GameContainer extends React.Component{
                     })
 
                     if(this.getUserCharacter().y_coordinate > 0 && this.getUserCharacter().y_coordinate <= this.state.map.y_map_size){
-                        this.sub.send({updatePlayers})
+                        // this.sub.send({updatePlayers})
+                        this.sub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
                         this.setState({
                             players: updatePlayers
                         })
@@ -305,10 +317,7 @@ class GameContainer extends React.Component{
         }
     }
     
-
-    /* 1 is currently the only user. */
     getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id ))
-    
     
     render(){
         return(
@@ -319,7 +328,6 @@ class GameContainer extends React.Component{
                     monsterObjs={this.state.monsters}
                     playerObjs={this.state.players}
                     user_id={this.props.userObj.id}
-                    characterObj={this.getUserCharacter()}
                 />
                 {/* <PlayerInfoContainer /> */}
             </div>

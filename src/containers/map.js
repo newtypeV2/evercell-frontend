@@ -26,7 +26,6 @@ class Map extends React.Component{
                 key={tileObj.id} 
                 tileType={tileObj.tile.name} 
                 tileObj={tileObj} 
-                characterObj={this.props.characterObj}
                 monsterObjs={this.props.monsterObjs}
                 playerObjs={this.props.playerObjs}
                 user_id={this.props.user_id}
