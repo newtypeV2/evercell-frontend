@@ -146,11 +146,7 @@ class GameContainer extends React.Component{
             //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
 
-                    // !this.getUserCharacter().character.race.includes("mirror") ? 
-                    // this.getUserCharacter().character.race
-                    // :
-                    // this.getUserCharacter().character.race.replace(' mirror','')
-                newDirection = this.getUserCharacter().direction === "right" ? "left" : "right"
+                newDirection = this.getUserCharacter().direction === "right" ? "right" : "left"
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
@@ -171,10 +167,8 @@ class GameContainer extends React.Component{
                             // !this.getUserCharacter().character.race.includes("mirror")
                         ){
                             playerObj.x_coordinate+=1
-                        }else{
-                            playerObj.direction = newDirection
                         }
-                        // playerObj.character.race = newRace
+                            playerObj.direction = "right"
                         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
@@ -192,12 +186,6 @@ class GameContainer extends React.Component{
             break;
 
             case "ArrowLeft":
-                newDirection = this.getUserCharacter().direction === "right" ? "left" : "right"
-                // newDirection = 
-                //     !this.getUserCharacter().character.race.includes("mirror") ? 
-                //     this.getUserCharacter().character.race + " mirror"
-                //     :
-                //     this.getUserCharacter().character.race
 
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
@@ -216,10 +204,8 @@ class GameContainer extends React.Component{
                              //Turn back condition check.
                         ){
                             playerObj.x_coordinate-=1
-                        }else{
-                            playerObj.direction = newDirection
                         }
-                        // playerObj.character.race = newRace
+                            playerObj.direction = "left"
                         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
                         return playerObj
                     }else{
