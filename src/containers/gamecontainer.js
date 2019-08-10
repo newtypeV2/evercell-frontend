@@ -39,17 +39,19 @@ class GameContainer extends React.Component{
     })
     }
 
-    handleReceiveNewData = (model_attr) => {
-        console.log(model_attr)
+    handleReceiveNewData = (data) => {
+        this.setState({
+            players: data.updatePlayers
+        })
         // if (<model-attribute> !== this.state.<your-state>) {
         //   this.setState({ <model-attribute> })
         // }
       }
     
-      handleChange = e => {
-          debugger
-        // this.setState({ <your-state>: e.target.value })
-      }
+    //   handleChange = e => {
+    //       debugger
+    //     // this.setState({ <your-state>: e.target.value })
+    //   }
 
     daggerStab = () => {
             document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
@@ -142,7 +144,6 @@ class GameContainer extends React.Component{
         switch(e.code){
             
             case "ArrowRight":
-            this.sub.send({test:"HELLO WORLD"})
                 newRace = 
                 !this.getUserCharacter().character.race.includes("mirror") ? 
                 this.getUserCharacter().character.race
@@ -177,6 +178,7 @@ class GameContainer extends React.Component{
                 })
 
                 if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
+                    this.sub.send({updatePlayers})
                     this.setState({
                         players: updatePlayers
                     })
@@ -217,6 +219,7 @@ class GameContainer extends React.Component{
                 })
 
                 if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
+                    this.sub.send({updatePlayers})
                     this.setState({
                         players: updatePlayers
                     })
@@ -248,6 +251,7 @@ class GameContainer extends React.Component{
                     })
 
                     if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
+                        this.sub.send({updatePlayers})
                         this.setState({
                             players: updatePlayers
                         })
@@ -278,6 +282,7 @@ class GameContainer extends React.Component{
                     })
 
                     if(this.getUserCharacter().y_coordinate > 0 && this.getUserCharacter().y_coordinate <= this.state.map.y_map_size){
+                        this.sub.send({updatePlayers})
                         this.setState({
                             players: updatePlayers
                         })
