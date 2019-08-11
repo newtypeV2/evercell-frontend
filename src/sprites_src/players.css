@@ -180,7 +180,8 @@
 
   .nametag{
     z-index: 1000;
-    font-size: 5px;
+    font-size: 7px;
+    width: 120%;
     color: white;
     top: -.5rem;
     right: .1rem;

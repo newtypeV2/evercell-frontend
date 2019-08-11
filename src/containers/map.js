@@ -44,7 +44,8 @@ class Map extends React.Component{
     
     generateTopWall = (x_index) => {
         return(
-            <div className="tilerow" key={`wall-${x_index}`}>
+            <React.Fragment key={`wall-${x_index}`}>
+            {/* <div className="tilerow" key={`wall-${x_index}`}> */}
                 <div className="tilerow">
                     {/* "wall_top_mid" is x_index - 2 */}
                     <Tile tileType="wall_side_top_left"/>
@@ -59,7 +60,8 @@ class Map extends React.Component{
                     {this.generateMid(x_index,"wall_mid")}
                     <Tile tileType="wall_side_mid_right"/>
                 </div>
-            </div>
+            {/* </div> */}
+            </React.Fragment>
         )
     }
 

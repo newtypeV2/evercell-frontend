@@ -7,7 +7,7 @@
 }
 
 #map{
-    transform: scale(2,2);
+    transform: scale(1.4,1.4);
     position: relative;
     margin: 0 auto;
     width: 50%;

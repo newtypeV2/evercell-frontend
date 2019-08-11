@@ -20,7 +20,7 @@ class GameContainer extends React.Component{
         // 1 -> 10x10 MAP - 1 Char - 3 Monsters
         // 2 -> 48x16 MAP - 1 Char - 0 Monsters
         // 3 -> 20x20 MAP - 2 Char - 4 Monsters
-        fetch(`${GAMES_API}3`)
+        fetch(`${GAMES_API}4`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
