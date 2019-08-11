@@ -20,7 +20,7 @@ class GameContainer extends React.Component{
         // 1 -> 10x10 MAP - 1 Char - 3 Monsters
         // 2 -> 48x16 MAP - 1 Char - 0 Monsters
         // 3 -> 20x20 MAP - 2 Char - 4 Monsters
-        fetch(`${GAMES_API}4`)
+        fetch(`${GAMES_API}3`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -186,6 +186,7 @@ class GameContainer extends React.Component{
         switch(e.code){
             //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
+            if(this.getUserCharacter()){
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
                         // console.log(playerObj)
@@ -227,9 +228,11 @@ class GameContainer extends React.Component{
                         players: updatePlayers
                     })
                 }
+            }
             break;
 
             case "ArrowLeft":
+            if(this.getUserCharacter()){
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
                         //x.coordinate-1 to see if there's more room left.
@@ -269,9 +272,11 @@ class GameContainer extends React.Component{
                         players: updatePlayers
                     })
                 }
+            }
             break;
 
             case "ArrowUp":
+            if(this.getUserCharacter()){
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate-1 to see if there's more room up.
@@ -308,9 +313,11 @@ class GameContainer extends React.Component{
                             players: updatePlayers
                         })
                     }
+            }
             break;
 
             case "ArrowDown":
+            if(this.getUserCharacter()){
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate+1 to see if there's more room down.
@@ -346,17 +353,24 @@ class GameContainer extends React.Component{
                             players: updatePlayers
                         })
                     }
+            }                    
             break;
             case "Space":
+            if(this.getUserCharacter()){
                     this.daggerStab();
                     this.attackHandler();
+            }
             break;
             //THIS IS JUST FOR TESTING PURPOSES
             case "KeyP":
+            if(this.getUserCharacter()){
                     this.monsterMoveTest();
+            }
             break;
             case "KeyO":
+            if(this.getUserCharacter()){                
                     this.monsterDaggerStab();
+            }
             break;
             //THIS IS JUST FOR TESTING PURPOSES
             default:
