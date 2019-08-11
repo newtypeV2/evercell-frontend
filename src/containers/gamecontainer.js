@@ -35,11 +35,20 @@ class GameContainer extends React.Component{
 
         const cable = ActionCable.createConsumer(WS_URL)
         this.playersSub = cable.subscriptions.create('CharacterGameChannel', {
-        received: this.handleReceiveNewData
-    })
+            received: this.handleReceivedPlayersData
+        })
+        this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
+            received: this.handleReceivedMonsterData
+        })
     }
 
-    handleReceiveNewData = (data) => {
+    handleReceivedMonsterData = (data) => {
+        this.setState({
+            monsters: this.state.monsters.map(monstersObj => monstersObj.id === data.id ? data : monstersObj)
+        })
+    }
+
+    handleReceivedPlayersData = (data) => {
         this.setState({
             players: this.state.players.map(playerObj => playerObj.id === data.id ? data : playerObj)
         })
@@ -80,6 +89,7 @@ class GameContainer extends React.Component{
                         hitMonster.hp = 0
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
+                    this.monstersSub.send(hitMonster)
                     this.setState({
                         monster : updatedMonsters
                     })
@@ -113,6 +123,7 @@ class GameContainer extends React.Component{
                         hitMonster.hp = 0
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
+                    this.monstersSub.send(hitMonster)
                     this.setState({
                         monster : updatedMonsters
                     })
