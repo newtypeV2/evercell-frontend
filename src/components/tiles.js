@@ -11,8 +11,16 @@ const Tile = (props) => {
             // console.log("MONS:",props.monsterObjs)
             // console.log("PLAYERS:",props.playerObjs)
             // console.log("TILES:","X:",props.tileObj.x_coordinate,"Y:",props.tileObj.y_coordinate)
-        let playerOccupant = props.playerObjs.find(playerObj => playerObj.x_coordinate === props.tileObj.x_coordinate && playerObj.y_coordinate === props.tileObj.y_coordinate);
-        let monsterOccupant = props.monsterObjs.find(monsterObj => monsterObj.x_coordinate === props.tileObj.x_coordinate && monsterObj.y_coordinate === props.tileObj.y_coordinate);
+        let playerOccupant = props.playerObjs.find(playerObj => 
+            playerObj.x_coordinate === props.tileObj.x_coordinate && 
+            playerObj.y_coordinate === props.tileObj.y_coordinate &&
+            playerObj.hp > 0
+            );
+        let monsterOccupant = props.monsterObjs.find(monsterObj => 
+            monsterObj.x_coordinate === props.tileObj.x_coordinate && 
+            monsterObj.y_coordinate === props.tileObj.y_coordinate &&
+            monsterObj.hp > 0
+            );
         
         if(playerOccupant){
             return <Player key={playerOccupant.id} charName={playerOccupant.character.name} classType={playerOccupant.character.race} characterObj={playerOccupant}/> 
@@ -29,7 +37,6 @@ const Tile = (props) => {
         
             <div className={props.tileType}>
             {
-                // (props.tileObj && props.characterObj) ?
                 (props.tileObj) ? 
                 renderOccupant()
                 : null
