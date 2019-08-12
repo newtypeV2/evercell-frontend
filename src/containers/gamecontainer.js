@@ -191,7 +191,7 @@ class GameContainer extends React.Component{
         switch(e.code){
             //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
-            if(this.getUserCharacter() > 0){
+            if(this.getUserCharacter().hp > 0){
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
                         // console.log(playerObj)
