@@ -33,7 +33,7 @@
 }
 
 #navbar{
-  border: 2px dotted red;
+  /* border: 2px dotted red; */
   width: 50%;
   margin-left: auto;
   margin-right: auto;
@@ -51,8 +51,4 @@
   top: 8rem;
   padding: 2rem;
   text-align: right;
-}
-
-#game{
-  margin-top: 10rem;
 }
