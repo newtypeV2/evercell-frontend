@@ -183,8 +183,18 @@
     font-size: 7px;
     width: 120%;
     color: white;
-    top: -.5rem;
+    top: -1.5rem;
     right: .1rem;
     position: absolute;
     background-color: rgba(0,0,0,.3)
+  }
+
+  .heartscontainer{
+    display: inline-block;
+    transform: scale(.4,.5);
+    position: absolute;
+    width: 400%;
+    top: -1.16rem;
+    right: -1.5rem;
+    z-index: 900;
   }

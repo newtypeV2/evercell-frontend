@@ -37,7 +37,7 @@
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
   padding: 1rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: xx-large;
@@ -51,4 +51,8 @@
   top: 8rem;
   padding: 2rem;
   text-align: right;
+}
+
+#game{
+  margin-top: 10rem;
 }

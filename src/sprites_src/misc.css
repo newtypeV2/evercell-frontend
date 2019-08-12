@@ -3,21 +3,24 @@
     width: 16px;
     height: 16px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -288px -256px
+    background-position: -288px -256px;
+    position: relative;
 }
 .ui_heart_half{
     display: inline-block;
     width: 16px;
     height: 16px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -304px -256px
+    background-position: -304px -256px;
+    position: relative;
 }
 .ui_heart_empty{
     display: inline-block;
     width: 16px;
     height: 16px;
     background-image: url('../assets/DungeonTileSet.png');
-    background-position: -320px -256px
+    background-position: -320px -256px;
+    position: relative;
 }
 
 .weapon_knife{

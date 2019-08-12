@@ -21,7 +21,7 @@ class GameContainer extends React.Component{
         // 2 -> 48x16 MAP - 1 Char - 0 Monsters
         // 3 -> 20x20 MAP - 2 Char - 4 Monsters
         // 4 -> 32x32 MAP - 6 Char - all other tiles are with Monsters
-        fetch(`${GAMES_API}3`)
+        fetch(`${GAMES_API}4`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -387,7 +387,7 @@ class GameContainer extends React.Component{
     
     render(){
         return(
-            <div>
+            <div id="game">
                 
                 <Screen 
                     mapObj={this.state.map} 
