@@ -20,6 +20,7 @@ class GameContainer extends React.Component{
         // 1 -> 10x10 MAP - 1 Char - 3 Monsters
         // 2 -> 48x16 MAP - 1 Char - 0 Monsters
         // 3 -> 20x20 MAP - 2 Char - 4 Monsters
+        // 4 -> 32x32 MAP - 6 Char - all other tiles are with Monsters
         fetch(`${GAMES_API}3`)
         .then(res => res.json())
         .then(data => {
@@ -31,7 +32,7 @@ class GameContainer extends React.Component{
                 description: data.description
             })
         })
-        document.addEventListener('keydown', this.keyDownHandler);
+        document.addEventListener('keyup', this.keyDownHandler);
 
         const cable = ActionCable.createConsumer(WS_URL)
         this.playersSub = cable.subscriptions.create('CharacterGameChannel', {
@@ -40,6 +41,13 @@ class GameContainer extends React.Component{
         this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
             received: this.handleReceivedMonsterData
         })
+        this.animationsSub = cable.subscriptions.create('AnimationChannel', {
+            received: this.handleReceivedAnimationData
+        })
+    }
+
+    handleReceivedAnimationData = (data) => {
+        this.daggerStab(data);
     }
 
     handleReceivedMonsterData = (data) => {
@@ -56,16 +64,13 @@ class GameContainer extends React.Component{
         //   this.setState({ <model-attribute> })
         // }
       }
-    
-    //   handleChange = e => {
-    //       debugger
-    //     // this.setState({ <your-state>: e.target.value })
-    //   }
 
-    daggerStab = () => {
-            document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
+    daggerStab = (characterObj) => {
+            document.getElementById(`${characterObj.character.name} weapon`).classList.add("stab")
+            // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
             setTimeout(()=>{
-                document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
+                document.getElementById(`${characterObj.character.name} weapon`).classList.remove("stab")
+                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
             },120)
     }
 
@@ -357,8 +362,8 @@ class GameContainer extends React.Component{
             break;
             case "Space":
             if(this.getUserCharacter()){
-                    this.daggerStab();
                     this.attackHandler();
+                    this.animationsSub.send(this.getUserCharacter())
             }
             break;
             //THIS IS JUST FOR TESTING PURPOSES
