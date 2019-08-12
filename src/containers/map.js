@@ -35,9 +35,9 @@ class Map extends React.Component{
     generateRow = (y_index) => {
         return(
             <div className="tilerow" key={`floor${y_index}`}>
-                <Tile tileType="wall_side_mid_left"/>
+                {/* <Tile tileType="wall_side_mid_left"/> */}
                 {this.generateTiles(this.props.mapObj.map_tiles.filter(tileObj => tileObj.y_coordinate === y_index))}
-                <Tile tileType="wall_side_mid_right"/>
+                {/* <Tile tileType="wall_side_mid_right"/> */}
             </div>
         )
     }
@@ -67,7 +67,7 @@ class Map extends React.Component{
 
     generateMap = () => {
         let mapArray = []
-        mapArray.push(this.generateTopWall(this.props.mapObj.x_map_size))
+        // mapArray.push(this.generateTopWall(this.props.mapObj.x_map_size))
         for(let y = 0; y < this.props.mapObj.y_map_size; y++){
             mapArray.push(this.generateRow(y))
         }

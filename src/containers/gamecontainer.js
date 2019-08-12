@@ -66,12 +66,12 @@ class GameContainer extends React.Component{
         // }
       }
 
-    deBouncedAttack = _.debounce( () => { 
+    deBouncedAttack = _.throttle( () => { 
         this.attackHandler()
         this.animationsSub.send(this.getUserCharacter())
-     },100 ) 
+     },150 ) 
 
-    deBouncedUpdateX = _.debounce( (x_offset,y_offset,direction) => {
+    deBouncedUpdateX = _.throttle( (x_offset,y_offset,direction) => {
         let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)    
         let updatePlayers = this.state.players.map(playerObj => {
             if(playerObj.character.user_id === this.props.userObj.id){
@@ -115,15 +115,59 @@ class GameContainer extends React.Component{
             () => this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
             )
         }
-    }, 100)
+    }, 150)
+
+    deBouncedUpdateY = _.throttle((x_offset,y_offset) => {
+    let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)   
+    let updatePlayers = this.state.players.map(playerObj => {
+        if(playerObj.character.user_id === this.props.userObj.id){
+            //y.coordinate-1 to see if there's more room up.
+            if(
+                //Map limit condition check.
+                this.getUserCharacter().y_coordinate+y_offset >= 0 &&
+                this.getUserCharacter().y_coordinate+y_offset < this.state.map.y_map_size &&
+                //Monster collision check.
+                !(this.state.monsters.find(monsterObj => 
+                    monsterObj.x_coordinate===this.getUserCharacter().x_coordinate+x_offset &&
+                    monsterObj.y_coordinate===this.getUserCharacter().y_coordinate+y_offset &&
+                    monsterObj.hp !==0
+                    )) &&
+                //Player collision check.
+                 !(otherPlayers.find(playerObj => 
+                    playerObj.x_coordinate===this.getUserCharacter().x_coordinate+x_offset &&
+                    playerObj.y_coordinate===this.getUserCharacter().y_coordinate+y_offset &&
+                    playerObj.hp !== 0
+                    ))
+            ){
+                playerObj.y_coordinate+=y_offset
+            }
+            // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
+            return playerObj
+        }else{
+            return playerObj
+        }
+    })
+
+    if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
+        // this.sub.send({updatePlayers})
+        this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
+        this.setState({
+            players: updatePlayers
+        })
+    }
+    },150)
 
     daggerStab = (characterObj) => {
+        if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
             document.getElementById(`${characterObj.character.name} weapon`).classList.add("stab")
             // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
             setTimeout(()=>{
+                if(document.getElementById(`${characterObj.character.name} weapon`)!==null){
                 document.getElementById(`${characterObj.character.name} weapon`).classList.remove("stab")
+            }
                 // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
             },120)
+        }
     }
 
     attackHandler = () => {
@@ -233,8 +277,8 @@ class GameContainer extends React.Component{
     }
 
     keyDownHandler = (e) => {
-        let updatePlayers
-        let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)
+        // let updatePlayers
+        // let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)
 
         /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
             Currently, the Player turns around and moves 1 tile.
@@ -246,178 +290,25 @@ class GameContainer extends React.Component{
             //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
             if(this.getUserCharacter().hp > 0){
-                // updatePlayers = this.state.players.map(playerObj => {
-                //     if(playerObj.character.user_id === this.props.userObj.id){
-                //         // console.log(playerObj)
-                //         //x.coordinate+1 to see if there's more room right.
-                //         if(
-                //             //Map limit condition check.
-                //             this.getUserCharacter().x_coordinate+1 >= 0 && 
-                //             this.getUserCharacter().x_coordinate+1 < this.state.map.x_map_size &&
-                //             //Monster collision check.
-                //             !(this.state.monsters.find(monsterObj => 
-                //                 monsterObj.x_coordinate===this.getUserCharacter().x_coordinate+1 &&
-                //                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate &&
-                //                 monsterObj.hp !== 0
-                //             )) &&
-                //             //Player collision check.
-                //             !(otherPlayers.find(playerObj => 
-                //                 playerObj.x_coordinate===this.getUserCharacter().x_coordinate+1 &&
-                //                 playerObj.y_coordinate===this.getUserCharacter().y_coordinate &&
-                //                 playerObj.hp !== 0
-                //             )) && 
-                //             this.getUserCharacter().direction === "right"
-                //             //Turn back condition check.
-                //             // !this.getUserCharacter().character.race.includes("mirror")
-                //         ){
-                //             playerObj.x_coordinate+=1
-                //         }
-                //             playerObj.direction = "right"
-                //         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
-                //         return playerObj
-                //     }else{
-                //         return playerObj
-                //     }
-                // })
-
-                // if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
-                //     // this.playersSub.send({updatePlayers})
-                    
-                //     this.setState({
-                //         players: updatePlayers
-                //     },
-                //     () => this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
-                //     )
-                // }
                 this.deBouncedUpdateX(1,0,"right")
             }
             break;
 
             case "ArrowLeft":
             if(this.getUserCharacter().hp > 0){
-                // updatePlayers = this.state.players.map(playerObj => {
-                //     if(playerObj.character.user_id === this.props.userObj.id){
-                //         //x.coordinate-1 to see if there's more room left.
-                //         if(
-                //             //Map limit condition check.
-                //             this.getUserCharacter().x_coordinate-1 >= 0 && 
-                //             this.getUserCharacter().x_coordinate-1 < this.state.map.x_map_size &&
-                //             //Monster collision check.
-                //             !(this.state.monsters.find(monsterObj => 
-                //                 monsterObj.x_coordinate===this.getUserCharacter().x_coordinate-1 &&
-                //                 monsterObj.y_coordinate===this.getUserCharacter().y_coordinate &&
-                //                 monsterObj.hp !== 0
-                //             )) &&
-                //              //Player collision check.
-                //             !(otherPlayers.find(playerObj => 
-                //                 playerObj.x_coordinate===this.getUserCharacter().x_coordinate-1 &&
-                //                 playerObj.y_coordinate===this.getUserCharacter().y_coordinate &&
-                //                 playerObj.hp !==0
-                //             )) && 
-                //             !(this.getUserCharacter().direction === "right")
-                //              //Turn back condition check.
-                //         ){
-                //             playerObj.x_coordinate-=1
-                //         }
-                //             playerObj.direction = "left"
-                //         // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
-                //         return playerObj
-                //     }else{
-                //         return playerObj
-                //     }
-                // })
-
-                // if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
-                //     // this.sub.send({updatePlayers})
-                //     this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
-                //     this.setState({
-                //         players: updatePlayers
-                //     },
-                //     () => this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))    
-                //     )
-                // }
                 this.deBouncedUpdateX(-1,0,"left")
             }
             break;
 
             case "ArrowUp":
             if(this.getUserCharacter().hp > 0){
-                    updatePlayers = this.state.players.map(playerObj => {
-                        if(playerObj.character.user_id === this.props.userObj.id){
-                            //y.coordinate-1 to see if there's more room up.
-                            if(
-                                //Map limit condition check.
-                                this.getUserCharacter().y_coordinate-1 >= 0 &&
-                                this.getUserCharacter().y_coordinate-1 < this.state.map.y_map_size &&
-                                //Monster collision check.
-                                !(this.state.monsters.find(monsterObj => 
-                                    monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
-                                    monsterObj.y_coordinate===this.getUserCharacter().y_coordinate-1 &&
-                                    monsterObj.hp !==0
-                                    )) &&
-                                //Player collision check.
-                                 !(otherPlayers.find(playerObj => 
-                                    playerObj.x_coordinate===this.getUserCharacter().x_coordinate &&
-                                    playerObj.y_coordinate===this.getUserCharacter().y_coordinate-1 &&
-                                    playerObj.hp !== 0
-                                    ))
-                            ){
-                                playerObj.y_coordinate-=1
-                            }
-                            // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
-                            return playerObj
-                        }else{
-                            return playerObj
-                        }
-                    })
-
-                    if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
-                        // this.sub.send({updatePlayers})
-                        this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
-                        this.setState({
-                            players: updatePlayers
-                        })
-                    }
+                    this.deBouncedUpdateY(0,-1)
             }
             break;
 
             case "ArrowDown":
             if(this.getUserCharacter().hp > 0){
-                    updatePlayers = this.state.players.map(playerObj => {
-                        if(playerObj.character.user_id === this.props.userObj.id){
-                            //y.coordinate+1 to see if there's more room down.
-                            if(
-                                //Map limit condition check.
-                                this.getUserCharacter().y_coordinate+1 >= 0 &&
-                                this.getUserCharacter().y_coordinate+1 < this.state.map.y_map_size &&
-                                //Monster collition check.
-                                !(this.state.monsters.find(monsterObj => 
-                                    monsterObj.x_coordinate===this.getUserCharacter().x_coordinate &&
-                                    monsterObj.y_coordinate===this.getUserCharacter().y_coordinate+1 &&
-                                    monsterObj.hp !== 0
-                                    )) &&
-                                !(otherPlayers.find(playerObj => 
-                                    playerObj.x_coordinate===this.getUserCharacter().x_coordinate &&
-                                    playerObj.y_coordinate===this.getUserCharacter().y_coordinate+1 &&
-                                    playerObj.hp !== 0
-                                 ))
-                            ){
-                                playerObj.y_coordinate+=1
-                            }
-                            // console.log('X:',playerObj.x_coordinate,'Y:',playerObj.y_coordinate)
-                            return playerObj
-                        }else{
-                            return playerObj
-                        }
-                    })
-
-                    if(this.getUserCharacter().y_coordinate > 0 && this.getUserCharacter().y_coordinate <= this.state.map.y_map_size){
-                        // this.sub.send({updatePlayers})
-                        this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
-                        this.setState({
-                            players: updatePlayers
-                        })
-                    }
+                this.deBouncedUpdateY(0,1)
             }                    
             break;
             case "Space":
