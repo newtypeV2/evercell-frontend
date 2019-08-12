@@ -191,7 +191,7 @@ class GameContainer extends React.Component{
         switch(e.code){
             //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter() > 0){
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
                         // console.log(playerObj)
@@ -237,7 +237,7 @@ class GameContainer extends React.Component{
             break;
 
             case "ArrowLeft":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter().hp > 0){
                 updatePlayers = this.state.players.map(playerObj => {
                     if(playerObj.character.user_id === this.props.userObj.id){
                         //x.coordinate-1 to see if there's more room left.
@@ -281,7 +281,7 @@ class GameContainer extends React.Component{
             break;
 
             case "ArrowUp":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter().hp > 0){
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate-1 to see if there's more room up.
@@ -322,7 +322,7 @@ class GameContainer extends React.Component{
             break;
 
             case "ArrowDown":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter().hp > 0){
                     updatePlayers = this.state.players.map(playerObj => {
                         if(playerObj.character.user_id === this.props.userObj.id){
                             //y.coordinate+1 to see if there's more room down.
@@ -361,19 +361,19 @@ class GameContainer extends React.Component{
             }                    
             break;
             case "Space":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter().hp > 0){
                     this.attackHandler();
                     this.animationsSub.send(this.getUserCharacter())
             }
             break;
             //THIS IS JUST FOR TESTING PURPOSES
             case "KeyP":
-            if(this.getUserCharacter()){
+            if(this.getUserCharacter().hp > 0 && this.props.userObj.id === 1){
                     this.monsterMoveTest();
             }
             break;
             case "KeyO":
-            if(this.getUserCharacter()){                
+            if(this.getUserCharacter().hp > 0 && this.props.userObj.id === 1){                
                     this.monsterDaggerStab();
             }
             break;
