@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  position: relative;
+  width: 100%;
 }
 
 .App-logo {
@@ -37,18 +39,33 @@
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   padding: 1rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: xx-large;
   text-align: left;
 }
 
-#loginForm>*{
+#loginForm{
   border: 1px solid black;
   position: absolute;
   right: 15rem;
   top: 8rem;
   padding: 2rem;
   text-align: right;
+}
+
+#charactercontainer{
+  display: inline-block;
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
+  border: 3px solid black;
+}
+
+.charactercard{
+  display: inline-block;
+  margin: 1rem;
+  border: .3rem solid black;
+  width: 9rem;
 }

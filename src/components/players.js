@@ -14,7 +14,7 @@ const Player = (props) => {
             </span>
             <span id={props.characterObj.character.name} className={`${props.characterObj.character.race} ${directionFacing}`}>
             </span>
-            <span id={`${props.charName} weapon`} className={weaponSide}></span>
+            <span id={`${props.characterObj.character.name} weapon`} className={weaponSide}></span>
         </React.Fragment>
     )
 }

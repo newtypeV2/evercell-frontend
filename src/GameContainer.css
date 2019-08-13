@@ -1,17 +1,18 @@
 #screen{
     /* border: 1px double cyan; */
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 50%;
+    height: 30%;
+    margin: 0 auto;
     position: relative;
 }
 
 #map{
-    transform: scale(1.4,1.4);
+    transform: scale(4,4);
     position: relative;
     margin: 0 auto;
-    width: 50%;
+    width: 112px;
 }
+
 
 #playerinfocontainer{
     border: 1px dotted blue;
@@ -33,5 +34,5 @@
 }
 
 #game{
-    margin-top: 5rem;
+    margin-top: 20%;
   }

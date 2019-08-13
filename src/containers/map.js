@@ -4,8 +4,6 @@ import Tile from '../components/tiles';
 
 class Map extends React.Component{
 
-    //         <Tile tileType="wall_side_top_right"/>
-
     getRelativeTile = (x_offset, y_offset) => {
         
         let foundTile = this.props.tileObjs.find(tile => (

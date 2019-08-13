@@ -14,7 +14,7 @@
   }
   
   /* .knight-walk{ */
-    .human{
+  .human{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -68px;
@@ -26,6 +26,8 @@
     z-index: 999;
     animation: knight-walk 0.4s steps(4) infinite;
   }
+
+  
   
   @keyframes knight-idle {
     from {background-position: -128px -68px;}
@@ -54,7 +56,9 @@
   }
   
   /* .wizard-walk{ */
-    .wizard{
+  
+
+  .wizard{
     display: inline-block;
     background-image: url("../assets/DungeonTileSet.png");
     background-position: -192px -164px;
@@ -66,6 +70,8 @@
     z-index: 999;
     animation: wizard-walk 0.4s steps(4) infinite;
   }
+
+
   
   @keyframes wizard-idle {
     from {background-position: -128px -164px;}
@@ -106,6 +112,8 @@
     z-index: 999;
     animation: elf-walk 0.4s steps(4) infinite;
   }
+
+  
   
   @keyframes elf-idle {
     from {background-position: -128px -4px;}
@@ -145,6 +153,7 @@
     z-index: 999;
     animation: lizard-walk 0.4s steps(4) infinite;
   }
+
   
   @keyframes lizard-idle {
     from {background-position: -128px -196px;}
@@ -156,6 +165,51 @@
     to {background-position: -256px -196px;}
   }
 
+
+  .lizard-character-card{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -196px;
+    width: 16px;
+    height: 28px;
+    position: relative;
+    z-index: 999;
+    animation: lizard-walk 0.4s steps(4) infinite;
+  }
+
+
+  .elf-character-card{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -4px;
+    width: 16px;
+    height: 28px;
+    position: relative;
+    z-index: 999;
+    animation: elf-walk 0.4s steps(4) infinite;
+  }
+
+  .wizard-character-card{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -164px;
+    width: 16px;
+    height: 28px;
+    position: relative;
+    z-index: 999;
+    animation: wizard-walk 0.4s steps(4) infinite;
+  }
+
+  .human-character-card{
+    display: inline-block;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -192px -68px;
+    width: 16px;
+    height: 28px;
+    position: relative;
+    z-index: 999;
+    animation: knight-walk 0.4s steps(4) infinite;
+  }
 
   /* Modifiers */
 
@@ -180,18 +234,18 @@
 
   .nametag{
     z-index: 1000;
-    font-size: 7px;
-    width: 120%;
+    font-size: 6px;
+    width: 1rem;
     color: white;
-    top: -1.5rem;
-    right: .1rem;
+    top: -1.2rem;
+    right: 0rem;
     position: absolute;
     background-color: rgba(0,0,0,.3)
   }
 
   .heartscontainer{
     display: inline-block;
-    transform: scale(.4,.5);
+    transform: scale(.25,.25);
     position: absolute;
     width: 400%;
     top: -1.16rem;

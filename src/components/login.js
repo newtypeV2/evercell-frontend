@@ -32,7 +32,7 @@ class Login extends React.Component{
             console.log(userObj)
             if(userObj.id){
                 this.props.loginUser(userObj)
-                this.props.history.push("/game")
+                this.props.history.push("/")
             }else{
                 alert("USERNAME/PASSWORD INCORRECT!!")
             }

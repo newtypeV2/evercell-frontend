@@ -22,7 +22,7 @@ class GameContainer extends React.Component{
         // 2 -> 48x16 MAP - 1 Char - 0 Monsters
         // 3 -> 20x20 MAP - 2 Char - 4 Monsters
         // 4 -> 32x32 MAP - 6 Char - all other tiles are with Monsters
-        fetch(`${GAMES_API}4`)
+        fetch(`${GAMES_API}${this.props.gameId}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -69,7 +69,7 @@ class GameContainer extends React.Component{
     deBouncedAttack = _.throttle( () => { 
         this.attackHandler()
         this.animationsSub.send(this.getUserCharacter())
-     },150 ) 
+     },100) 
 
     deBouncedUpdateX = _.throttle( (x_offset,y_offset,direction) => {
         let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)    
@@ -115,7 +115,7 @@ class GameContainer extends React.Component{
             () => this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
             )
         }
-    }, 150)
+    }, 100)
 
     deBouncedUpdateY = _.throttle((x_offset,y_offset) => {
     let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)   
@@ -155,7 +155,7 @@ class GameContainer extends React.Component{
             players: updatePlayers
         })
     }
-    },150)
+    },100)
 
     daggerStab = (characterObj) => {
         if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
@@ -268,13 +268,13 @@ class GameContainer extends React.Component{
 
    
 
-    monsterDaggerStab = () => {
-            // document.getElementById("monsterWeapon").classList.add("stab")
-            document.querySelectorAll(".monWeap").forEach(node => node.classList.add("stab"))
-            setTimeout(()=>{
-                document.querySelectorAll(".monWeap").forEach(node => node.classList.remove("stab"))
-            },120)
-    }
+    // monsterDaggerStab = () => {
+    //         // document.getElementById("monsterWeapon").classList.add("stab")
+    //         document.querySelectorAll(".monWeap").forEach(node => node.classList.add("stab"))
+    //         setTimeout(()=>{
+    //             document.querySelectorAll(".monWeap").forEach(node => node.classList.remove("stab"))
+    //         },120)
+    // }
 
     keyDownHandler = (e) => {
         // let updatePlayers
@@ -336,7 +336,6 @@ class GameContainer extends React.Component{
     }
     
     getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id ))
-    
     render(){
         return(
             <div id="game">
@@ -348,7 +347,6 @@ class GameContainer extends React.Component{
                     characterObj={this.getUserCharacter()}
                     user_id={this.props.userObj.id}
                 />
-                {/* <PlayerInfoContainer /> */}
             </div>
         )
     }
