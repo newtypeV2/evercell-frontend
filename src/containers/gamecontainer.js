@@ -345,6 +345,7 @@ class GameContainer extends React.Component{
                     mapObj={this.state.map} 
                     monsterObjs={this.state.monsters}
                     playerObjs={this.state.players}
+                    characterObj={this.getUserCharacter()}
                     user_id={this.props.userObj.id}
                 />
                 {/* <PlayerInfoContainer /> */}

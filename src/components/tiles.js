@@ -23,7 +23,7 @@ const Tile = (props) => {
             );
         
         if(playerOccupant){
-            return <Player key={playerOccupant.id} charName={playerOccupant.character.name} classType={playerOccupant.character.race} characterObj={playerOccupant}/> 
+            return <Player key={playerOccupant.id} characterObj={playerOccupant}/> 
             // console.log("MATCH FOUND AT","TILES:","X:",props.tileObj.x_coordinate,"Y:",props.tileObj.y_coordinate)
         }else if(monsterOccupant){
             return <Monster key={monsterOccupant.id} monsterType={monsterOccupant.monster.name}/>

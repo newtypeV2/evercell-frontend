@@ -1,7 +1,10 @@
 div.tilerow{
-    margin: 0px;
-    height: 16px;
+    height: 15.994px;
+    width: 144px;
+    margin: 0 auto;
+    border: 0px;
     position: relative;
+
 }
 
 .wall_top_left{
@@ -284,6 +287,14 @@ div.tilerow{
     height: 16px;
     position: relative;
     background-position: -64px -160px
+}
+
+.out_of_bounds{
+    display: inline-block;
+    background-color: black;
+    width: 16px;
+    height: 16px;
+    position: relative;
 }
 
 .display-coords{
