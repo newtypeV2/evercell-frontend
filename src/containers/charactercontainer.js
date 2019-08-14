@@ -8,7 +8,7 @@ renderCharacterCards = () => this.props.userObj.characters.map(character =>
     <CharacterCard 
         key={character.id}
         characterObj={character}
-        onClickHandler={this.props.selectGame}
+        selectGame={this.props.selectGame}
     />
 )
 
