@@ -27,6 +27,54 @@ class Map extends React.Component{
     generateViewPort = () => {
        return [
                 <div className="tilerow" key="row1">
+                    {this.getRelativeTile(-6,-6)}
+                    {this.getRelativeTile(-5,-6)}
+                    {this.getRelativeTile(-4,-6)}
+                    {this.getRelativeTile(-3,-6)}
+                    {this.getRelativeTile(-2,-6)}
+                    {this.getRelativeTile(-1,-6)}
+                    {this.getRelativeTile(0,-6)}
+                    {this.getRelativeTile(1,-6)}
+                    {this.getRelativeTile(2,-6)}
+                    {this.getRelativeTile(3,-6)}
+                    {this.getRelativeTile(4,-6)}
+                    {this.getRelativeTile(5,-6)}
+                    {this.getRelativeTile(6,-6)}
+                    </div>,
+                <div className="tilerow" key="row2">
+                    {this.getRelativeTile(-6,-5)}
+                    {this.getRelativeTile(-5,-5)}
+                    {this.getRelativeTile(-4,-5)}
+                    {this.getRelativeTile(-3,-5)}
+                    {this.getRelativeTile(-2,-5)}
+                    {this.getRelativeTile(-1,-5)}
+                    {this.getRelativeTile(0,-5)}
+                    {this.getRelativeTile(1,-5)}
+                    {this.getRelativeTile(2,-5)}
+                    {this.getRelativeTile(3,-5)}
+                    {this.getRelativeTile(4,-5)}
+                    {this.getRelativeTile(5,-5)}
+                    {this.getRelativeTile(6,-5)}
+                    </div>,
+                <div className="tilerow" key="row3">
+                    {this.getRelativeTile(-6,-4)}
+                    {this.getRelativeTile(-5,-4)}
+                    {this.getRelativeTile(-4,-4)}
+                    {this.getRelativeTile(-3,-4)}
+                    {this.getRelativeTile(-2,-4)}
+                    {this.getRelativeTile(-1,-4)}
+                    {this.getRelativeTile(0,-4)}
+                    {this.getRelativeTile(1,-4)}
+                    {this.getRelativeTile(2,-4)}
+                    {this.getRelativeTile(3,-4)}
+                    {this.getRelativeTile(4,-4)}
+                    {this.getRelativeTile(5,-4)}
+                    {this.getRelativeTile(6,-4)}
+                    </div>,
+                <div className="tilerow" key="row4">
+                    {this.getRelativeTile(-6,-3)}
+                    {this.getRelativeTile(-5,-3)}
+                    {this.getRelativeTile(-4,-3)}
                     {this.getRelativeTile(-3,-3)}
                     {this.getRelativeTile(-2,-3)}
                     {this.getRelativeTile(-1,-3)}
@@ -34,8 +82,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,-3)}
                     {this.getRelativeTile(2,-3)}
                     {this.getRelativeTile(3,-3)}
+                    {this.getRelativeTile(4,-3)}
+                    {this.getRelativeTile(5,-3)}
+                    {this.getRelativeTile(6,-3)}
                 </div>,
-                <div className="tilerow" key="row2">
+                <div className="tilerow" key="row5">
+                    {this.getRelativeTile(-6,-2)}
+                    {this.getRelativeTile(-5,-2)}
+                    {this.getRelativeTile(-4,-2)}
                     {this.getRelativeTile(-3,-2)}
                     {this.getRelativeTile(-2,-2)}
                     {this.getRelativeTile(-1,-2)}
@@ -43,8 +97,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,-2)}
                     {this.getRelativeTile(2,-2)}
                     {this.getRelativeTile(3,-2)}
+                    {this.getRelativeTile(4,-2)}
+                    {this.getRelativeTile(5,-2)}
+                    {this.getRelativeTile(6,-2)}
                 </div>,
-                <div className="tilerow" key="row3">
+                <div className="tilerow" key="row6">
+                    {this.getRelativeTile(-6,-1)}
+                    {this.getRelativeTile(-5,-1)}
+                    {this.getRelativeTile(-4,-1)}
                     {this.getRelativeTile(-3,-1)}
                     {this.getRelativeTile(-2,-1)}
                     {this.getRelativeTile(-1,-1)}
@@ -52,8 +112,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,-1)}
                     {this.getRelativeTile(2,-1)}
                     {this.getRelativeTile(3,-1)}
+                    {this.getRelativeTile(4,-1)}
+                    {this.getRelativeTile(5,-1)}
+                    {this.getRelativeTile(6,-1)}
                 </div>,
-                <div className="tilerow" key="row4">
+                <div className="tilerow" key="row7">
+                    {this.getRelativeTile(-6,0)}
+                    {this.getRelativeTile(-5,0)}
+                    {this.getRelativeTile(-4,0)}
                     {this.getRelativeTile(-3,0)}
                     {this.getRelativeTile(-2,0)}
                     {this.getRelativeTile(-1,0)}
@@ -61,8 +127,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,0)}
                     {this.getRelativeTile(2,0)}
                     {this.getRelativeTile(3,0)}
+                    {this.getRelativeTile(4,0)}
+                    {this.getRelativeTile(5,0)}
+                    {this.getRelativeTile(6,0)}
                 </div>,
-                <div className="tilerow" key="row5">
+                <div className="tilerow" key="row8">
+                    {this.getRelativeTile(-6,+1)}
+                    {this.getRelativeTile(-5,+1)}
+                    {this.getRelativeTile(-4,+1)}
                     {this.getRelativeTile(-3,+1)}
                     {this.getRelativeTile(-2,+1)}
                     {this.getRelativeTile(-1,+1)}
@@ -70,8 +142,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,+1)}
                     {this.getRelativeTile(2,+1)}
                     {this.getRelativeTile(3,+1)}
+                    {this.getRelativeTile(4,+1)}
+                    {this.getRelativeTile(5,+1)}
+                    {this.getRelativeTile(6,+1)}
                 </div>,
-                <div className="tilerow" key="row6">
+                <div className="tilerow" key="row9">
+                    {this.getRelativeTile(-6,+2)}
+                    {this.getRelativeTile(-5,+2)}
+                    {this.getRelativeTile(-4,+2)}
                     {this.getRelativeTile(-3,+2)}
                     {this.getRelativeTile(-2,+2)}
                     {this.getRelativeTile(-1,+2)}
@@ -79,8 +157,14 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,+2)}
                     {this.getRelativeTile(2,+2)}
                     {this.getRelativeTile(3,+2)}
+                    {this.getRelativeTile(4,+2)}
+                    {this.getRelativeTile(5,+2)}
+                    {this.getRelativeTile(6,+2)}
                 </div>,
-                <div className="tilerow" key="row7">
+                <div className="tilerow" key="row10">
+                    {this.getRelativeTile(-6,+3)}
+                    {this.getRelativeTile(-5,+3)}
+                    {this.getRelativeTile(-4,+3)}
                     {this.getRelativeTile(-3,+3)}
                     {this.getRelativeTile(-2,+3)}
                     {this.getRelativeTile(-1,+3)}
@@ -88,6 +172,54 @@ class Map extends React.Component{
                     {this.getRelativeTile(1,+3)}
                     {this.getRelativeTile(2,+3)}
                     {this.getRelativeTile(3,+3)}
+                    {this.getRelativeTile(4,+3)}
+                    {this.getRelativeTile(5,+3)}
+                    {this.getRelativeTile(6,+3)}
+                </div>,
+                <div className="tilerow" key="row11">
+                    {this.getRelativeTile(-6,+4)}
+                    {this.getRelativeTile(-5,+4)}
+                    {this.getRelativeTile(-4,+4)}
+                    {this.getRelativeTile(-3,+4)}
+                    {this.getRelativeTile(-2,+4)}
+                    {this.getRelativeTile(-1,+4)}
+                    {this.getRelativeTile(0,+4)}
+                    {this.getRelativeTile(1,+4)}
+                    {this.getRelativeTile(2,+4)}
+                    {this.getRelativeTile(3,+4)}
+                    {this.getRelativeTile(4,+4)}
+                    {this.getRelativeTile(5,+4)}
+                    {this.getRelativeTile(6,+4)}
+                </div>,
+                <div className="tilerow" key="row12">
+                    {this.getRelativeTile(-6,+5)}
+                    {this.getRelativeTile(-5,+5)}
+                    {this.getRelativeTile(-4,+5)}
+                    {this.getRelativeTile(-3,+5)}
+                    {this.getRelativeTile(-2,+5)}
+                    {this.getRelativeTile(-1,+5)}
+                    {this.getRelativeTile(0,+5)}
+                    {this.getRelativeTile(1,+5)}
+                    {this.getRelativeTile(2,+5)}
+                    {this.getRelativeTile(3,+5)}
+                    {this.getRelativeTile(4,+5)}
+                    {this.getRelativeTile(5,+5)}
+                    {this.getRelativeTile(6,+5)}
+                </div>,
+                <div className="tilerow" key="row13">
+                    {this.getRelativeTile(-6,+6)}
+                    {this.getRelativeTile(-5,+6)}
+                    {this.getRelativeTile(-4,+6)}
+                    {this.getRelativeTile(-3,+6)}
+                    {this.getRelativeTile(-2,+6)}
+                    {this.getRelativeTile(-1,+6)}
+                    {this.getRelativeTile(0,+6)}
+                    {this.getRelativeTile(1,+6)}
+                    {this.getRelativeTile(2,+6)}
+                    {this.getRelativeTile(3,+6)}
+                    {this.getRelativeTile(4,+6)}
+                    {this.getRelativeTile(5,+6)}
+                    {this.getRelativeTile(6,+6)}
                 </div>,
         ]
         

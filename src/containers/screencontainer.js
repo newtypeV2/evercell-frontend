@@ -5,32 +5,32 @@ import Map from './map';
 
 class ScreenContainer extends React.Component{
 
-    getNearbyTiles = () => {    
+    getNearbyTiles = (offset) => {    
         return this.props.mapObj.map_tiles.filter(tiles => 
-            (tiles.x_coordinate >= this.props.characterObj.x_coordinate-3 &&
-                tiles.x_coordinate <= this.props.characterObj.x_coordinate+3 &&
-                tiles.y_coordinate >= this.props.characterObj.y_coordinate-3 &&
-                tiles.y_coordinate <= this.props.characterObj.y_coordinate+3
+            (tiles.x_coordinate >= this.props.characterObj.x_coordinate-offset &&
+                tiles.x_coordinate <= this.props.characterObj.x_coordinate+offset &&
+                tiles.y_coordinate >= this.props.characterObj.y_coordinate-offset &&
+                tiles.y_coordinate <= this.props.characterObj.y_coordinate+offset
                 ))
     }
 
-    getNearbyPlayers = () => {
+    getNearbyPlayers = (offset) => {
         return this.props.playerObjs.filter(playerObj => 
-            (playerObj.x_coordinate >= this.props.characterObj.x_coordinate-3 &&
-                playerObj.x_coordinate <= this.props.characterObj.x_coordinate+3 &&
-                playerObj.y_coordinate >= this.props.characterObj.y_coordinate-3 &&
-                playerObj.y_coordinate <= this.props.characterObj.y_coordinate+3 &&
+            (playerObj.x_coordinate >= this.props.characterObj.x_coordinate-offset &&
+                playerObj.x_coordinate <= this.props.characterObj.x_coordinate+offset &&
+                playerObj.y_coordinate >= this.props.characterObj.y_coordinate-offset &&
+                playerObj.y_coordinate <= this.props.characterObj.y_coordinate+offset &&
                 playerObj.hp > 0
                 ))
 
     }
 
-    getNearbyMonsters = () => {
+    getNearbyMonsters = (offset) => {
         return this.props.monsterObjs.filter(monsterObj => 
-            (monsterObj.x_coordinate >= this.props.characterObj.x_coordinate-3 &&
-                monsterObj.x_coordinate <= this.props.characterObj.x_coordinate+3 &&
-                monsterObj.y_coordinate >= this.props.characterObj.y_coordinate-3 &&
-                monsterObj.y_coordinate <= this.props.characterObj.y_coordinate+3 &&
+            (monsterObj.x_coordinate >= this.props.characterObj.x_coordinate-offset &&
+                monsterObj.x_coordinate <= this.props.characterObj.x_coordinate+offset &&
+                monsterObj.y_coordinate >= this.props.characterObj.y_coordinate-offset &&
+                monsterObj.y_coordinate <= this.props.characterObj.y_coordinate+offset &&
                 monsterObj.hp > 0
                 ))
 
@@ -38,15 +38,16 @@ class ScreenContainer extends React.Component{
 
 
     render(){
+        const tileOffset = 6;
         return(
             <div id="screen">
                 {
                     this.props.characterObj ?
                     <Map 
-                    tileObjs = {this.getNearbyTiles()}
+                    tileObjs = {this.getNearbyTiles(tileOffset)}
                     mapObj = {this.props.mapObj} 
-                    monsterObjs = {this.getNearbyMonsters()}
-                    playerObjs = {this.getNearbyPlayers()}
+                    monsterObjs = {this.getNearbyMonsters(tileOffset)}
+                    playerObjs = {this.getNearbyPlayers(tileOffset)}
                     user_id = {this.props.user_id}
                     characterObj = {this.props.characterObj}
                     />

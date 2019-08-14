@@ -7,10 +7,10 @@
 }
 
 #map{
-    transform: scale(4,4);
+    transform: scale(2,2);
     position: relative;
     margin: 0 auto;
-    width: 112px;
+    width: 250px;
 }
 
 
