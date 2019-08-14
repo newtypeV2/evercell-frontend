@@ -1,6 +1,6 @@
 import React from 'react';
 import Screen from './screencontainer';
-// import PlayerInfoContainer from './playerinfocontainer';
+import PlayerInfoContainer from './playerinfocontainer';
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 import _ from 'lodash';
@@ -66,12 +66,12 @@ class GameContainer extends React.Component{
         // }
       }
 
-    deBouncedAttack = _.throttle( () => { 
+    deBouncedAttack = _.debounce( () => { 
         this.attackHandler()
         this.animationsSub.send(this.getUserCharacter())
-     },100) 
+     },130) 
 
-    deBouncedUpdateX = _.throttle( (x_offset,y_offset,direction) => {
+    deBouncedUpdateX = _.debounce( (x_offset,y_offset,direction) => {
         let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)    
         let updatePlayers = this.state.players.map(playerObj => {
             if(playerObj.character.user_id === this.props.userObj.id){
@@ -111,16 +111,16 @@ class GameContainer extends React.Component{
 
             this.playersSub.send({
                 player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
-                message: "Hello"
+                game_id : this.props.gameId
             })
             
             this.setState({
                 players: updatePlayers
             })
         }
-    }, 100)
+    }, 130)
 
-    deBouncedUpdateY = _.throttle((x_offset,y_offset) => {
+    deBouncedUpdateY = _.debounce((x_offset,y_offset) => {
     let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)   
     let updatePlayers = this.state.players.map(playerObj => {
         if(playerObj.character.user_id === this.props.userObj.id){
@@ -155,13 +155,13 @@ class GameContainer extends React.Component{
         // this.sub.send({updatePlayers})
             this.playersSub.send({
                 player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
-                message: "Hello"
+                game_id : this.props.gameId
             })
         this.setState({
                 players: updatePlayers
             })
         }
-    }, 100)
+    }, 130)
 
     daggerStab = (characterObj) => {
         if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
@@ -208,7 +208,9 @@ class GameContainer extends React.Component{
                         hitPlayer.hp = 0
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
-                    this.playersSub.send(hitPlayer)
+                    this.playersSub.send({
+                        player : hitPlayer
+                    })
                     this.setState({
                         players : updatedPlayers
                     })
@@ -236,12 +238,15 @@ class GameContainer extends React.Component{
                     })
                 }
                 if(hitPlayer){ 
+                    
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
                     if (hitPlayer.hp < 0){
                         hitPlayer.hp = 0
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
-                    this.playersSub.send(hitPlayer)
+                    this.playersSub.send({
+                        player : hitPlayer
+                    })
                     this.setState({
                         players : updatedPlayers
                     })
@@ -351,6 +356,7 @@ class GameContainer extends React.Component{
                     characterObj={this.getUserCharacter()}
                     user_id={this.props.userObj.id}
                 />
+
             </div>
         )
     }
