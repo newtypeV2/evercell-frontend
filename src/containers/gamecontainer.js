@@ -59,7 +59,7 @@ class GameContainer extends React.Component{
 
     handleReceivedPlayersData = (data) => {
         this.setState({
-            players: this.state.players.map(playerObj => playerObj.id === data.id ? data : playerObj)
+            players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj)
         })
         // if (<model-attribute> !== this.state.<your-state>) {
         //   this.setState({ <model-attribute> })
@@ -108,12 +108,15 @@ class GameContainer extends React.Component{
         })
         if(this.getUserCharacter().x_coordinate >= 0 && this.getUserCharacter().x_coordinate < this.state.map.x_map_size){
             // this.playersSub.send({updatePlayers})
+
+            this.playersSub.send({
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
+                message: "Hello"
+            })
             
             this.setState({
                 players: updatePlayers
-            },
-            () => this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
-            )
+            })
         }
     }, 100)
 
@@ -150,12 +153,15 @@ class GameContainer extends React.Component{
 
     if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
         // this.sub.send({updatePlayers})
-        this.playersSub.send(updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id))
+            this.playersSub.send({
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
+                message: "Hello"
+            })
         this.setState({
-            players: updatePlayers
-        })
-    }
-    },100)
+                players: updatePlayers
+            })
+        }
+    }, 100)
 
     daggerStab = (characterObj) => {
         if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
@@ -265,8 +271,6 @@ class GameContainer extends React.Component{
             monsters: newMonsters
         })
     }
-
-   
 
     // monsterDaggerStab = () => {
     //         // document.getElementById("monsterWeapon").classList.add("stab")
