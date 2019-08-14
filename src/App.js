@@ -47,12 +47,12 @@ class App extends React.Component{
         />
         <Route exact path="/login" 
           render={
-            (routeProps) => <Login loginUser={this.loginUser} {...routeProps} />
+            () => <Login loginUser={this.loginUser}  />
           } 
         />
         <Route exact path="/characters" 
           render={
-            (routeProps)=> (this.state.loggedInUser.id ? (<CharacterContainer userObj={this.state.loggedInUser} selectGame={this.selectGame} {...routeProps} />) : (<Redirect to="/login"/>))
+            ()=> (this.state.loggedInUser.id ? (<CharacterContainer userObj={this.state.loggedInUser} selectGame={this.selectGame} />) : (<Redirect to="/login"/>))
           } 
         />
         <Route exact path="/game" 

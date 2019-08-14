@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
-import {Redirect} from 'react-router-dom';
+import {Redirect , withRouter} from 'react-router-dom';
 import { LOGIN_API } from '../constants';
 
 class Login extends React.Component{
@@ -59,4 +59,4 @@ class Login extends React.Component{
     }
 }
 
-export default Login
+export default withRouter(Login)

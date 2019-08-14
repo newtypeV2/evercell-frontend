@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import CharacterCard from '../components/charactercard';
 
 class CharacterContainer extends React.Component{
@@ -20,4 +21,4 @@ renderCharacterCards = () => this.props.userObj.characters.map(character =>
     }
 }
 
-export default CharacterContainer
+export default withRouter(CharacterContainer)
