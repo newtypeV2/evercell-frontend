@@ -174,6 +174,8 @@
     height: 28px;
     position: relative;
     z-index: 999;
+    margin: 1rem;
+    transform: scale(2);
     animation: lizard-walk 0.4s steps(4) infinite;
   }
 
@@ -186,6 +188,8 @@
     height: 28px;
     position: relative;
     z-index: 999;
+    margin: 1rem;
+    transform: scale(2);
     animation: elf-walk 0.4s steps(4) infinite;
   }
 
@@ -197,6 +201,8 @@
     height: 28px;
     position: relative;
     z-index: 999;
+    margin: 1rem;
+    transform: scale(2);
     animation: wizard-walk 0.4s steps(4) infinite;
   }
 
@@ -208,6 +214,8 @@
     height: 28px;
     position: relative;
     z-index: 999;
+    margin: 1rem;
+    transform: scale(2);
     animation: knight-walk 0.4s steps(4) infinite;
   }
 
