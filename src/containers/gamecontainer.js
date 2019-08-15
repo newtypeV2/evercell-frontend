@@ -40,8 +40,13 @@ class GameContainer extends React.Component{
 
         //CharacterGameChannel now handles all Game related events
         const cable = ActionCable.createConsumer(WS_URL)
+
         this.playersSub = cable.subscriptions.create('CharacterGameChannel', {
             received: this.handleReceivedPlayersData
+        })
+
+        this.messageLogs = cable.subscriptions.create('MessageLogsChannel', {
+            received: this.handleMessageLogsData
         })
 
         // this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
@@ -51,6 +56,19 @@ class GameContainer extends React.Component{
         // this.animationsSub = cable.subscriptions.create('AnimationChannel', {
         //     received: this.handleReceivedAnimationData
         // })
+    }
+
+    handleMessageLogsData = (data) => {
+        if(data.log){
+            this.setState({
+                logs : [...this.state.logs,data.log]
+            })
+        }
+        if(data.message){
+            this.setState({
+                messages : [...this.state.messages,data.message]
+            })
+        }
     }
 
     handleReceivedPlayersData = (data) => {
@@ -208,17 +226,20 @@ class GameContainer extends React.Component{
             let hitMonster = this.state.monsters.find(
                 monsterObj => 
                     monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                    monsterObj.hp > 0
                 )
             let hitPlayer = this.state.players.find(
-                monsterObj => 
-                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                playerObj => 
+                    playerObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
+                    playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                    playerObj.hp > 0
                 )
                 if(hitMonster){
                     hitMonster.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitMonster.hp < 0){
+                    if (hitMonster.hp <= 0){
                         hitMonster.hp = 0
+                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`})
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
                     this.playersSub.send({
@@ -231,8 +252,9 @@ class GameContainer extends React.Component{
                 if(hitPlayer){
                     
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitPlayer.hp < 0){
+                    if (hitPlayer.hp <= 0){
                         hitPlayer.hp = 0
+                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`})
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                     this.playersSub.send({
@@ -246,17 +268,20 @@ class GameContainer extends React.Component{
             let hitMonster = this.state.monsters.find(
                 monsterObj => 
                     monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                    monsterObj.hp > 0
                 )
             let hitPlayer = this.state.players.find(
-                monsterObj => 
-                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate
+                playerObj => 
+                    playerObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
+                    playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                    playerObj.hp > 0
                 )
                 if(hitMonster){
                     hitMonster.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitMonster.hp < 0){
+                    if (hitMonster.hp <= 0){
                         hitMonster.hp = 0
+                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`})
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
                     this.playersSub.send({
@@ -269,8 +294,9 @@ class GameContainer extends React.Component{
                 if(hitPlayer){ 
 
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitPlayer.hp < 0){
+                    if (hitPlayer.hp <= 0){
                         hitPlayer.hp = 0
+                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`})
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                     this.playersSub.send({
@@ -370,6 +396,7 @@ class GameContainer extends React.Component{
                 <ChatContainer />
                 <PlayerInfoContainer 
                     characterObj={this.getUserCharacter()}
+                    logs={this.state.logs}
                 />
             </div>
         )

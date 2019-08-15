@@ -16,7 +16,7 @@ left margin is 100p */
 #chatcontainer{
     border: 5px solid black;
     display: inline-block;
-    width: 50%;
+    width: 70%;
     position: relative;
     margin: 0 auto;
     margin-top: 7rem;
@@ -42,7 +42,7 @@ input[type=text] {
     border: 5px solid black;
     padding: .1rem;
     margin-top: .5rem;
-    width: 50%; 
+    width: 70%; 
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -104,3 +104,6 @@ input[type=text] {
     padding: .5rem;
 }
 
+div.log{
+    /* height: 1.2em; */
+}
