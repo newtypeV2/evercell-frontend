@@ -1,6 +1,6 @@
 import React from 'react';
 import Screen from './screencontainer';
-import PlayerInfoContainer from './playerinfocontainer';
+// import PlayerInfoContainer from './playerinfocontainer';
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 import _ from 'lodash';
@@ -58,8 +58,21 @@ class GameContainer extends React.Component{
     }
 
     handleReceivedPlayersData = (data) => {
+        let new_monsters = this.state.monsters.map(monsterObj => {
+            let new_coordinates = data.monsters.find(monster => monster.id === monsterObj.id);
+            if(new_coordinates){
+            monsterObj = {...monsterObj, 
+			x_coordinate: new_coordinates.x_coordinate, 
+			y_coordinate: new_coordinates.y_coordinate
+            }
+            return monsterObj
+            }else{
+                return monsterObj
+            }
+        })
         this.setState({
-            players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj)
+            players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj),
+            monsters: new_monsters
         })
         // if (<model-attribute> !== this.state.<your-state>) {
         //   this.setState({ <model-attribute> })
@@ -238,7 +251,7 @@ class GameContainer extends React.Component{
                     })
                 }
                 if(hitPlayer){ 
-                    
+
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
                     if (hitPlayer.hp < 0){
                         hitPlayer.hp = 0
@@ -356,7 +369,7 @@ class GameContainer extends React.Component{
                     characterObj={this.getUserCharacter()}
                     user_id={this.props.userObj.id}
                 />
-
+                {/* <PlayerInfoContainer /> */}
             </div>
         )
     }
