@@ -1,7 +1,6 @@
 div.tilerow{
-    height: 16px;
-    width: 224px;
-    margin: 0 auto;
+    height: 1em;
+    width: 13em;
     border: 0px;
     position: relative;
 

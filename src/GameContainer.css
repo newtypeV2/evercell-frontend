@@ -1,26 +1,85 @@
 #screen{
     /* border: 1px double cyan; */
     width: 50%;
-    height: 30%;
+    top: 4em;
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 5em;
+}
+
+/* margin: 25px 50px 75px 100px;
+top margin is 25px
+right margin is 50px
+bottom margin is 75px
+left margin is 100p */
+
+#chatcontainer{
+    border: 5px solid black;
+    display: inline-block;
+    width: 50%;
+    position: relative;
     margin: 0 auto;
+    margin-top: 7rem;
+    padding: .1rem;
+}
+
+#chatform{
+    width: 100%;
+    text-align: left;
     position: relative;
 }
 
-#map{
-    transform: scale(2,2);
-    position: relative;
-    margin: 0 auto;
-    width: 250px;
+.chatcomponent{
+    margin: .3rem;
 }
 
+input[type=text] {
+    position: relative;
+    width: 80%;
+ }
 
 #playerinfocontainer{
-    border: 1px dotted blue;
+    border: 5px solid black;
     padding: .1rem;
-    margin-top: 1rem;
-    width: 50%;
+    margin-top: .5rem;
+    width: 50%; 
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+#chatmessages{
+    position: relative;
+    text-align: left;
+    padding: .3rem;
+    width: 100%;
+}
+
+#charactercontainer{
+    display: inline-block;
+    width: 90%;
+    position: relative;
+    margin: 0 auto;
+    border: 3px solid black;
+  }
+  
+.charactercard{
+    display: inline-block;
+    margin: 1rem;
+    border: .3rem solid black;
+    width: 12rem;
+  }
+  
+#map{
+    display: inline-block;
+    transform: scale(2,2);
+    position: relative;
+    width: 13em;
+}
+
+#game{
+    padding-top: 5rem;
+    width: 80%;
+    margin: 0 auto;
     position: relative;
 }
 
@@ -29,10 +88,19 @@
     display: inline-block;
     position: relative;
     font-size: medium;
-    width: 10rem;
+    width: 30%;
     margin: 1rem;
+    padding: .5rem;
 }
 
-#game{
-    margin-top: 10%;
-  }
+#logwindow{
+    border: 1px solid black;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    width: 40%;
+    font-size: 13px;
+    margin: 1rem;
+    padding: .5rem;
+}
+

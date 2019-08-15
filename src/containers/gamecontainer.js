@@ -1,6 +1,7 @@
 import React from 'react';
 import Screen from './screencontainer';
-// import PlayerInfoContainer from './playerinfocontainer';
+import PlayerInfoContainer from './playerinfocontainer';
+import ChatContainer from './chatcontainer';
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 import _ from 'lodash';
@@ -12,7 +13,9 @@ class GameContainer extends React.Component{
             players: [],
             monsters: [],
             map: {},
-            description: null
+            description: null,
+            messages:[],
+            logs: []
         }
     }
 
@@ -35,53 +38,67 @@ class GameContainer extends React.Component{
         })
         document.addEventListener('keyup', this.keyDownHandler);
 
+        //CharacterGameChannel now handles all Game related events
         const cable = ActionCable.createConsumer(WS_URL)
         this.playersSub = cable.subscriptions.create('CharacterGameChannel', {
             received: this.handleReceivedPlayersData
         })
-        this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
-            received: this.handleReceivedMonsterData
-        })
-        this.animationsSub = cable.subscriptions.create('AnimationChannel', {
-            received: this.handleReceivedAnimationData
-        })
-    }
 
-    handleReceivedAnimationData = (data) => {
-        this.daggerStab(data);
-    }
-
-    handleReceivedMonsterData = (data) => {
-        this.setState({
-            monsters: this.state.monsters.map(monstersObj => monstersObj.id === data.id ? data : monstersObj)
-        })
+        // this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
+        //     received: this.handleReceivedMonsterData
+        // })
+        
+        // this.animationsSub = cable.subscriptions.create('AnimationChannel', {
+        //     received: this.handleReceivedAnimationData
+        // })
     }
 
     handleReceivedPlayersData = (data) => {
-        let new_monsters = this.state.monsters.map(monsterObj => {
-            let new_coordinates = data.monsters.find(monster => monster.id === monsterObj.id);
-            if(new_coordinates){
-            monsterObj = {...monsterObj, 
-			x_coordinate: new_coordinates.x_coordinate, 
-			y_coordinate: new_coordinates.y_coordinate
-            }
-            return monsterObj
-            }else{
-                return monsterObj
-            }
-        })
-        this.setState({
-            players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj),
-            monsters: new_monsters
-        })
-        // if (<model-attribute> !== this.state.<your-state>) {
-        //   this.setState({ <model-attribute> })
+        if(data.player){
+            this.setState({
+                    players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj)
+                })
+        }
+
+        if(data.monsters){
+            this.setState({
+                monsters : data.monsters
+            })
+        }
+
+        if(data.animation){
+            this.daggerStab(data.animation);
+        }
+        // Used for monster movement but not suitable for many monsters.
+        // if(data.monsters){
+        //     let new_monsters = this.state.monsters.map(monsterObj => {
+        //         let new_coordinates = data.monsters.find(monster => monster.id === monsterObj.id);
+        //         if(new_coordinates){
+        //         monsterObj = {...monsterObj, 
+        //         x_coordinate: new_coordinates.x_coordinate, 
+        //         y_coordinate: new_coordinates.y_coordinate
+        //         }
+        //         return monsterObj
+        //         }else{
+        //             return monsterObj
+        //         }
+        //     })
+        //     this.setState({
+        //         players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj),
+        //         monsters: new_monsters
+        //     })
+        // }else{
+        //     this.setState({
+        //         players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj),
+        //     })
         // }
       }
 
     deBouncedAttack = _.debounce( () => { 
         this.attackHandler()
-        this.animationsSub.send(this.getUserCharacter())
+        this.playersSub.send({
+            animation : this.getUserCharacter()
+        })
      },130) 
 
     deBouncedUpdateX = _.debounce( (x_offset,y_offset,direction) => {
@@ -123,8 +140,7 @@ class GameContainer extends React.Component{
             // this.playersSub.send({updatePlayers})
 
             this.playersSub.send({
-                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
-                game_id : this.props.gameId
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id)
             })
             
             this.setState({
@@ -167,8 +183,7 @@ class GameContainer extends React.Component{
     if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
         // this.sub.send({updatePlayers})
             this.playersSub.send({
-                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
-                game_id : this.props.gameId
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id)
             })
         this.setState({
                 players: updatePlayers
@@ -179,20 +194,17 @@ class GameContainer extends React.Component{
     daggerStab = (characterObj) => {
         if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
             document.getElementById(`${characterObj.character.name} weapon`).classList.add("stab")
-            // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.add("stab")
             setTimeout(()=>{
                 if(document.getElementById(`${characterObj.character.name} weapon`)!==null){
                 document.getElementById(`${characterObj.character.name} weapon`).classList.remove("stab")
             }
-                // document.getElementById(`${this.getUserCharacter().character.name} weapon`).classList.remove("stab")
             },120)
         }
     }
 
     attackHandler = () => {
         if((this.getUserCharacter().direction === "right")){
-            // if(!(this.getUserCharacter().character.race.includes("mirror"))){
-            // console.log("Damage anyone at X:",this.getUserCharacter().x_coordinate+1,"Y:",this.getUserCharacter().y_coordinate)
+
             let hitMonster = this.state.monsters.find(
                 monsterObj => 
                     monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
@@ -209,7 +221,9 @@ class GameContainer extends React.Component{
                         hitMonster.hp = 0
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
-                    this.monstersSub.send(hitMonster)
+                    this.playersSub.send({
+                        monsters : updatedMonsters
+                    })
                     this.setState({
                         monster : updatedMonsters
                     })
@@ -245,7 +259,9 @@ class GameContainer extends React.Component{
                         hitMonster.hp = 0
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
-                    this.monstersSub.send(hitMonster)
+                    this.playersSub.send({
+                        monsters : updatedMonsters
+                    })
                     this.setState({
                         monster : updatedMonsters
                     })
@@ -290,26 +306,9 @@ class GameContainer extends React.Component{
         })
     }
 
-    // monsterDaggerStab = () => {
-    //         // document.getElementById("monsterWeapon").classList.add("stab")
-    //         document.querySelectorAll(".monWeap").forEach(node => node.classList.add("stab"))
-    //         setTimeout(()=>{
-    //             document.querySelectorAll(".monWeap").forEach(node => node.classList.remove("stab"))
-    //         },120)
-    // }
 
     keyDownHandler = (e) => {
-        // let updatePlayers
-        // let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)
-
-        /* ArrowRight and ArrowLeft key needs to be updated so that the character will stay put and just turn back when the opposite direction is pressed.
-            Currently, the Player turns around and moves 1 tile.
-        */
-        //updatePlayers is the prepped new state position of the users character.
-        //newRace is the prepped new state state for the where the avatar faces(either left or right by appending or removing "mirror" on the classname).
-        //Monster Collision, Player Collision and WithinMapChecker can be created as helper methods to replace the conditions so it can be used on the move conditions.
         switch(e.code){
-            //ADD COLUMN DIRECTION TO CHARACTERGAME WITH DEFAULT VALUE RIGHT. DIRECTION COLUMN WILL DETERMINE IF IT IS MIRRORED OR NOT.
             case "ArrowRight":
             if(this.getUserCharacter().hp > 0){
                 this.deBouncedUpdateX(1,0,"right")
@@ -361,7 +360,6 @@ class GameContainer extends React.Component{
     render(){
         return(
             <div id="game">
-                
                 <Screen 
                     mapObj={this.state.map} 
                     monsterObjs={this.state.monsters}
@@ -369,7 +367,10 @@ class GameContainer extends React.Component{
                     characterObj={this.getUserCharacter()}
                     user_id={this.props.userObj.id}
                 />
-                {/* <PlayerInfoContainer /> */}
+                <ChatContainer />
+                <PlayerInfoContainer 
+                    characterObj={this.getUserCharacter()}
+                />
             </div>
         )
     }
