@@ -4,16 +4,6 @@ import PlayerCard from '../components/playercard';
 class PlayerInfoContainer extends React.Component{
 
     renderLogs = () => {
-        //limit to 5 logs
-        // if(this.props.length < 5){
-        //     let empty_log = 5 - this.props.length
-        //     for(let i = 0; i < empty_log; i++){
-
-        //     }
-        // }else{
-
-        // }
-
         let limit
         let test = []
         let array = []
@@ -30,14 +20,20 @@ class PlayerInfoContainer extends React.Component{
         return array
     }
     
-    render(){
+    render(){ 
         return(
-            <div id="playerinfocontainer">
+            <React.Fragment>
+            { this.props.characterObj ?
+            <div id="playerinfocontainer">  
                 <div id="logwindow">
                     { this.props.logs.length !== 0 ? this.renderLogs() : null }
                 </div>
                 <PlayerCard characterObj={this.props.characterObj}/>
-            </div>
+            </div> 
+            : 
+            null
+            }
+            </React.Fragment>
         )
     }
 }

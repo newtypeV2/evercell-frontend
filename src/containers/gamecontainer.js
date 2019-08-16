@@ -2,6 +2,7 @@ import React from 'react';
 import Screen from './screencontainer';
 import PlayerInfoContainer from './playerinfocontainer';
 import ChatContainer from './chatcontainer';
+import Spinner from 'react-bootstrap/Spinner'
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 import _ from 'lodash';
@@ -10,6 +11,7 @@ class GameContainer extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            isLoading: true,
             players: [],
             monsters: [],
             map: {},
@@ -20,16 +22,11 @@ class GameContainer extends React.Component{
     }
 
     componentDidMount = () => {
-        // For fetching, 
-        // 1 -> 10x10 MAP - 1 Char - 3 Monsters
-        // 2 -> 48x16 MAP - 1 Char - 0 Monsters
-        // 3 -> 20x20 MAP - 2 Char - 4 Monsters
-        // 4 -> 32x32 MAP - 6 Char - all other tiles are with Monsters
         fetch(`${GAMES_API}${this.props.gameId}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             this.setState({
+                isLoading: false,
                 players: data.character_games,
                 monsters: data.game_monsters,
                 map: data.map,
@@ -59,33 +56,38 @@ class GameContainer extends React.Component{
     }
 
     handleMessageLogsData = (data) => {
-        if(data.log){
-            this.setState({
-                logs : [...this.state.logs,data.log]
-            })
-        }
-        if(data.message){
-            this.setState({
-                messages : [...this.state.messages,data.message]
-            })
+        if(data.gameId === this.props.gameId){
+            if(data.log){
+                this.setState({
+                    logs : [...this.state.logs,data.log]
+                })
+            }
+            if(data.message){
+                this.setState({
+                    messages : [...this.state.messages,data.message]
+                })
+            }
         }
     }
 
     handleReceivedPlayersData = (data) => {
-        if(data.player){
-            this.setState({
-                    players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj)
+        debugger
+        if(data.gameId === this.props.gameId){
+            if(data.player){
+                this.setState({
+                        players: this.state.players.map(playerObj => playerObj.id === data.player.id ? data.player : playerObj)
+                    })
+            }
+        
+            if(data.monsters){
+                this.setState({
+                    monsters : data.monsters
                 })
-        }
+            }
 
-        if(data.monsters){
-            this.setState({
-                monsters : data.monsters
-            })
-        }
-
-        if(data.animation){
-            this.daggerStab(data.animation);
+            if(data.animation){
+                this.daggerStab(data.animation);
+            }
         }
         // Used for monster movement but not suitable for many monsters.
         // if(data.monsters){
@@ -115,7 +117,8 @@ class GameContainer extends React.Component{
     deBouncedAttack = _.debounce( () => { 
         this.attackHandler()
         this.playersSub.send({
-            animation : this.getUserCharacter()
+            animation : this.getUserCharacter(),
+            gameId : this.props.gameId
         })
      },130) 
 
@@ -158,7 +161,8 @@ class GameContainer extends React.Component{
             // this.playersSub.send({updatePlayers})
 
             this.playersSub.send({
-                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id)
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
+                gameId : this.props.gameId
             })
             
             this.setState({
@@ -201,7 +205,8 @@ class GameContainer extends React.Component{
     if(this.getUserCharacter().y_coordinate >= 0 && this.getUserCharacter().y_coordinate < this.state.map.y_map_size){
         // this.sub.send({updatePlayers})
             this.playersSub.send({
-                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id)
+                player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
+                gameId : this.props.gameId
             })
         this.setState({
                 players: updatePlayers
@@ -239,11 +244,15 @@ class GameContainer extends React.Component{
                     hitMonster.hp -= this.getUserCharacter().character.attack_damage
                     if (hitMonster.hp <= 0){
                         hitMonster.hp = 0
-                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`})
+                        this.messageLogs.send({
+                            log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
+                            gameId : this.props.gameId
+                        })
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
                     this.playersSub.send({
-                        monsters : updatedMonsters
+                        monsters : updatedMonsters,
+                        gameId : this.props.gameId
                     })
                     this.setState({
                         monster : updatedMonsters
@@ -254,11 +263,15 @@ class GameContainer extends React.Component{
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
                     if (hitPlayer.hp <= 0){
                         hitPlayer.hp = 0
-                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`})
+                        this.messageLogs.send({
+                            log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
+                            gameId : this.props.gameId
+                        })
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                     this.playersSub.send({
-                        player : hitPlayer
+                        player : hitPlayer,
+                        gameId : this.props.gameId
                     })
                     this.setState({
                         players : updatedPlayers
@@ -281,11 +294,15 @@ class GameContainer extends React.Component{
                     hitMonster.hp -= this.getUserCharacter().character.attack_damage
                     if (hitMonster.hp <= 0){
                         hitMonster.hp = 0
-                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`})
+                        this.messageLogs.send({
+                            log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
+                            gameId : this.props.gameId
+                        })
                     }
                     let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
                     this.playersSub.send({
-                        monsters : updatedMonsters
+                        monsters : updatedMonsters,
+                        gameId : this.props.gameId
                     })
                     this.setState({
                         monster : updatedMonsters
@@ -296,11 +313,15 @@ class GameContainer extends React.Component{
                     hitPlayer.hp -= this.getUserCharacter().character.attack_damage
                     if (hitPlayer.hp <= 0){
                         hitPlayer.hp = 0
-                        this.messageLogs.send({log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`})
+                        this.messageLogs.send({
+                            log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
+                            gameId : this.props.gameId
+                        })
                     }
                     let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                     this.playersSub.send({
-                        player : hitPlayer
+                        player : hitPlayer,
+                        gameId : this.props.gameId
                     })
                     this.setState({
                         players : updatedPlayers
@@ -385,20 +406,34 @@ class GameContainer extends React.Component{
     getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id ))
     render(){
         return(
-            <div id="game">
-                <Screen 
-                    mapObj={this.state.map} 
-                    monsterObjs={this.state.monsters}
-                    playerObjs={this.state.players}
-                    characterObj={this.getUserCharacter()}
-                    user_id={this.props.userObj.id}
-                />
-                <ChatContainer />
-                <PlayerInfoContainer 
-                    characterObj={this.getUserCharacter()}
-                    logs={this.state.logs}
-                />
-            </div>
+            <React.Fragment>
+            { this.state.isLoading ?
+                <div id="loadingscreen">
+                    <div className="human-character-card"></div>
+                    <div className="lizard-character-card"></div>
+                    <div className="elf-character-card"></div>
+                    <div className="wizard-character-card"></div>
+                    <div>LOADING . . .</div>
+                </div>
+                :
+                <div id="game">
+                    <Screen 
+                        mapObj={this.state.map} 
+                        monsterObjs={this.state.monsters}
+                        playerObjs={this.state.players}
+                        characterObj={this.getUserCharacter()}
+                        user_id={this.props.userObj.id}
+                    />
+                    <PlayerInfoContainer 
+                        characterObj={this.getUserCharacter()}
+                        logs={this.state.logs}
+                    />
+                    <ChatContainer 
+                        characterObj={this.getUserCharacter()}
+                    />
+                </div>
+            }
+            </React.Fragment>
         )
     }
 }
