@@ -16,7 +16,7 @@ class PlayerInfoContainer extends React.Component{
             test.push(this.props.logs[i])
             array.push(<div key={i} className="log">{this.props.logs[i]}</div>)
         }
-        console.log(test)
+        // console.log(test)
         return array
     }
     

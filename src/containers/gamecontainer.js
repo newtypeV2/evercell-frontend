@@ -2,7 +2,6 @@ import React from 'react';
 import Screen from './screencontainer';
 import PlayerInfoContainer from './playerinfocontainer';
 import ChatContainer from './chatcontainer';
-import Spinner from 'react-bootstrap/Spinner'
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 import _ from 'lodash';
@@ -19,6 +18,13 @@ class GameContainer extends React.Component{
             messages:[],
             logs: []
         }
+    }
+
+    sendMessage = (message) => {
+        this.messageLogs.send({
+            message : `${this.getUserCharacter().character.name}: ${message}`,
+            gameId : this.props.gameId
+        })
     }
 
     componentDidMount = () => {
@@ -71,7 +77,6 @@ class GameContainer extends React.Component{
     }
 
     handleReceivedPlayersData = (data) => {
-        debugger
         if(data.gameId === this.props.gameId){
             if(data.player){
                 this.setState({
@@ -392,11 +397,6 @@ class GameContainer extends React.Component{
                     this.monsterMoveTest();
             }
             break;
-            case "KeyO":
-            if(this.getUserCharacter().hp > 0 && this.props.userObj.id === 1){                
-                    this.monsterDaggerStab();
-            }
-            break;
             //THIS IS JUST FOR TESTING PURPOSES
             default:
                 break
@@ -430,6 +430,8 @@ class GameContainer extends React.Component{
                     />
                     <ChatContainer 
                         characterObj={this.getUserCharacter()}
+                        messages={this.state.messages}
+                        sendMessage={this.sendMessage}
                     />
                 </div>
             }
