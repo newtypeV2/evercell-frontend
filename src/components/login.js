@@ -29,8 +29,9 @@ class Login extends React.Component{
         })
         .then(res => res.json())
         .then(data => {
-            let userObj = JSON.parse(data.userinfo)
-            if(userObj.id){
+            if(data.userinfo){
+                let userObj = JSON.parse(data.userinfo)
+                localStorage.setItem("jwt",data.token)
                 this.props.loginUser(userObj)
                 this.props.history.push("/")
             }else{

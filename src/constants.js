@@ -1,4 +1,6 @@
 
+
+
     //localhost 
 // export const API = 'http://localhost:5000/'
 
@@ -23,6 +25,7 @@ export const WS_URL = `ws://${window.location.hostname}:3500/cable`
 
 export const GAMES_API = `${API}games/`
 export const LOGIN_API = `${API}login/`
+export const TOKEN_URL = `${API}users/`
 
 
 // export const classUrl = `http://${window.location.hostname}:5000/class`;

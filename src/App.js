@@ -6,6 +6,7 @@ import Login from './components/login';
 import PageNotFound from './components/pagenotfound';
 import CharacterContainer from './containers/charactercontainer';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { TOKEN_URL } from './constants';
 import './App.css';
 import './sprites_src/players.css';
 import './sprites_src/tiles.css';
@@ -22,23 +23,46 @@ class App extends React.Component{
     }
   }
 
+  
   loginUser = (userObj) => {
     this.setState({
       loggedInUser: userObj
     })
   }
 
+  logoutUser = () => {
+    localStorage.clear()
+    this.setState({
+      loggedInUser : {}
+    })
+  }
+  
   selectGame = (gameid) => {
     this.setState({
       selectedGame: gameid
     })
     this.props.history.push("/game")
   }
-
+  
+  componentDidMount = () => {
+      if(localStorage.jwt){
+        fetch(TOKEN_URL,{
+          headers: {"Authentication": `Bearer ${localStorage.jwt}`}
+        })
+        .then(res => res.json())
+        .then(userObj =>{
+          console.log("IN APP",userObj)
+          this.loginUser(userObj)
+        })
+      }
+  }
   render(){
     return (
       <div className="App">
-      <NavBar />
+      <NavBar 
+        loggedInUser = {this.state.loggedInUser}
+        logoutUser = {this.logoutUser}
+      />
       <Switch>
         <Route exact path="/" 
           render={
@@ -50,13 +74,20 @@ class App extends React.Component{
         />
         <Route exact path="/login" 
           render={
-            () => <Login loginUser={this.loginUser}  />
+            () => (this.state.loggedInUser.id ?
+              (<Redirect to="/characters"/>)
+              :
+              <Login loginUser={this.loginUser}  />
+            )
           } 
         />
         <Route exact path="/characters" 
           render={
             ()=> (this.state.loggedInUser.id ? 
-              (<CharacterContainer userObj={this.state.loggedInUser} selectGame={this.selectGame} />)
+              (<CharacterContainer 
+                userObj={this.state.loggedInUser} 
+                selectGame={this.selectGame} 
+              />)
               :
               (<Redirect to="/login"/>))
           } 
@@ -64,7 +95,10 @@ class App extends React.Component{
         <Route exact path="/game" 
           render={
             ()=> (this.state.loggedInUser.id && this.state.selectedGame !== 0 ? 
-              (<GameContainer userObj={this.state.loggedInUser} gameId={this.state.selectedGame} />)
+              (<GameContainer 
+                userObj={this.state.loggedInUser} 
+                gameId={this.state.selectedGame} 
+              />)
               : 
               (<Redirect to="/login"/>))
           } 

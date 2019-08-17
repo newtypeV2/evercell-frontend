@@ -1,9 +1,16 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 const NavBar = (props) => {
+
     return(
-        <div id="navbar">Evercell</div>
+        <React.Fragment>
+            <div id="navbar">Evercell</div>
+            <div>
+                { props.loggedInUser.id ? <input type="button" onClick={props.logoutUser} value="logout"></input> : null }
+            </div>
+        </React.Fragment>
     )
 }
 
-export default NavBar
+export default withRouter(NavBar)
