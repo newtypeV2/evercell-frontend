@@ -418,20 +418,22 @@ class GameContainer extends React.Component{
                 :
                 <div id="game">
                     <Screen 
-                        mapObj={this.state.map} 
-                        monsterObjs={this.state.monsters}
-                        playerObjs={this.state.players}
-                        characterObj={this.getUserCharacter()}
-                        user_id={this.props.userObj.id}
+                        mapObj = {this.state.map} 
+                        monsterObjs = {this.state.monsters}
+                        playerObjs = {this.state.players}
+                        characterObj = {this.getUserCharacter()}
+                        user_id = {this.props.userObj.id}
                     />
                     <PlayerInfoContainer 
-                        characterObj={this.getUserCharacter()}
-                        logs={this.state.logs}
+                        characterObj = {this.getUserCharacter()}
+                        logs = {this.state.logs}
                     />
                     <ChatContainer 
-                        characterObj={this.getUserCharacter()}
-                        messages={this.state.messages}
-                        sendMessage={this.sendMessage}
+                        characterObj = {this.getUserCharacter()}
+                        userId = {this.props.userObj.id}
+                        gameId = {this.props.gameId}
+                        messages = {this.state.messages}
+                        sendMessage = {this.sendMessage}
                     />
                 </div>
             }

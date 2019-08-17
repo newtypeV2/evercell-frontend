@@ -14,7 +14,7 @@ const ChatBox = (props) => {
         let spacerCount = 4 - props.messages.length
         let spacer = []
         for(let i = 0; i < spacerCount; i++){
-            spacer.push(<div key={i}>.</div>)
+            spacer.push(<br key={i}></br>)
         }
         return spacer
     }

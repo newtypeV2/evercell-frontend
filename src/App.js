@@ -42,7 +42,10 @@ class App extends React.Component{
       <Switch>
         <Route exact path="/" 
           render={
-            () => (this.state.loggedInUser.id ? (<Redirect to="/characters"/>) : (<Redirect to="/login"/>))
+            () => (this.state.loggedInUser.id ?
+              (<Redirect to="/characters"/>)
+              :
+              (<Redirect to="/login"/>))
           }
         />
         <Route exact path="/login" 
@@ -52,12 +55,18 @@ class App extends React.Component{
         />
         <Route exact path="/characters" 
           render={
-            ()=> (this.state.loggedInUser.id ? (<CharacterContainer userObj={this.state.loggedInUser} selectGame={this.selectGame} />) : (<Redirect to="/login"/>))
+            ()=> (this.state.loggedInUser.id ? 
+              (<CharacterContainer userObj={this.state.loggedInUser} selectGame={this.selectGame} />)
+              :
+              (<Redirect to="/login"/>))
           } 
         />
         <Route exact path="/game" 
           render={
-            ()=> (this.state.loggedInUser.id && this.state.selectedGame !== 0 ? (<GameContainer userObj={this.state.loggedInUser} gameId={this.state.selectedGame} />) : (<Redirect to="/login"/>))
+            ()=> (this.state.loggedInUser.id && this.state.selectedGame !== 0 ? 
+              (<GameContainer userObj={this.state.loggedInUser} gameId={this.state.selectedGame} />)
+              : 
+              (<Redirect to="/login"/>))
           } 
         />
         <Route exact path="/credits" component={Credits} />
