@@ -22,7 +22,16 @@ class GameContainer extends React.Component{
 
     sendMessage = (message) => {
         this.messageLogs.send({
-            message : `${this.getUserCharacter().character.name}: ${message}`,
+            body : message,
+            sender : this.getUserCharacter().character.name,
+            userId : this.props.userObj.id,
+            gameId : this.props.gameId
+        })
+    }
+
+    respawnPlayer = () => {
+        this.playersSub.send({
+            respawn : this.getUserCharacter(),
             gameId : this.props.gameId
         })
     }
@@ -404,6 +413,7 @@ class GameContainer extends React.Component{
     }
     
     getUserCharacter = () => (this.state.players.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id ))
+
     render(){
         return(
             <React.Fragment>
@@ -427,11 +437,10 @@ class GameContainer extends React.Component{
                     <PlayerInfoContainer 
                         characterObj = {this.getUserCharacter()}
                         logs = {this.state.logs}
+                        respawnPlayer = {this.respawnPlayer}
                     />
                     <ChatContainer 
                         characterObj = {this.getUserCharacter()}
-                        userId = {this.props.userObj.id}
-                        gameId = {this.props.gameId}
                         messages = {this.state.messages}
                         sendMessage = {this.sendMessage}
                     />

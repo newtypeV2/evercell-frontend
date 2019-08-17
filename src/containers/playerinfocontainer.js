@@ -28,7 +28,10 @@ class PlayerInfoContainer extends React.Component{
                 <div id="logwindow">
                     { this.props.logs.length !== 0 ? this.renderLogs() : null }
                 </div>
-                <PlayerCard characterObj={this.props.characterObj}/>
+                <PlayerCard 
+                characterObj = {this.props.characterObj}
+                onClickHandler = {this.props.respawnPlayer}
+                />
             </div> 
             : 
             null
