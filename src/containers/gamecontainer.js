@@ -101,10 +101,16 @@ class GameContainer extends React.Component{
 
             if(data.animation){
                 if(data.animation && data.skill){
-                    this.skillOne(data.animation)
+                    this.skillSwirl(data.animation)
                 }else{
                     this.daggerStab(data.animation);
                 }
+            }
+
+            if(data.players){
+                this.setState({
+                    players : data.players
+                })
             }
         }
         // Used for monster movement but not suitable for many monsters.
@@ -133,8 +139,8 @@ class GameContainer extends React.Component{
       }
 
 
-    deBouncedSkill1 = _.debounce( () => { 
-        // this.attackHandler()
+    deBouncedSkillSwirl = _.debounce( () => { 
+        this.attackHandler("swirl")
         this.playersSub.send({
             animation : this.getUserCharacter(),
             skill : 1,
@@ -243,7 +249,7 @@ class GameContainer extends React.Component{
     }, 130)
 
 
-    skillOne = (characterObj) => {
+    skillSwirl = (characterObj) => {
         let secondaryWeapon = document.getElementById(`${characterObj.character.name} secondaryweapon`)
         let wholeModel = document.getElementById(`${characterObj.character.name}-model`) 
         secondaryWeapon.classList.remove("hidden")
@@ -253,7 +259,7 @@ class GameContainer extends React.Component{
             secondaryWeapon.classList.add("hidden")
             wholeModel.classList.remove(`--skill1-${characterObj.direction}`)
         }
-        },400)
+        },500)
     }
 
     daggerStab = (characterObj) => {
@@ -267,108 +273,148 @@ class GameContainer extends React.Component{
         }
     }
 
-    attackHandler = () => {
-        if((this.getUserCharacter().direction === "right")){
-
-            let hitMonster = this.state.monsters.find(
-                monsterObj => 
-                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
-                    monsterObj.hp > 0
-                )
-            let hitPlayer = this.state.players.find(
+    attackHandler = (skill) => {
+        if(skill === "swirl"){
+            let hitPlayers = this.state.players.filter(
                 playerObj => 
-                    playerObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
-                    playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                    playerObj.x_coordinate <= this.getUserCharacter().x_coordinate+1 &&
+                    playerObj.x_coordinate >= this.getUserCharacter().x_coordinate-1 &&
+                    playerObj.y_coordinate <= this.getUserCharacter().y_coordinate+1 &&
+                    playerObj.y_coordinate >= this.getUserCharacter().y_coordinate-1 &&
+                    playerObj !== this.getUserCharacter() &&
                     playerObj.hp > 0
                 )
-                if(hitMonster){
-                    hitMonster.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitMonster.hp <= 0){
-                        hitMonster.hp = 0
-                        this.messageLogs.send({
-                            log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
-                            gameId : this.props.gameId
-                        })
+            if (hitPlayers){
+                let hp_hitPlayers = hitPlayers.map(playerObj => {
+                    playerObj.hp -= this.getUserCharacter().character.attack_damage
+                        if (playerObj.hp <=0){
+                            playerObj.hp = 0
+                            this.messageLogs.send({
+                                log : `${this.getUserCharacter().character.name} killed ${playerObj.character.name}`,
+                                gameId : this.props.gameId
+                            })
+                        }
+                    return playerObj
+                })
+                let updatedPlayers = this.state.players.map(playerObj => {
+                    let findUpdated = hp_hitPlayers.find(pObj => pObj.id === playerObj.id)
+                    if(findUpdated){
+                        return findUpdated
+                    }else{
+                        return playerObj
                     }
-                    let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
-                    this.playersSub.send({
-                        monsters : updatedMonsters,
-                        gameId : this.props.gameId
-                    })
-                    this.setState({
-                        monster : updatedMonsters
-                    })
-                }
-                if(hitPlayer){
-                    
-                    hitPlayer.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitPlayer.hp <= 0){
-                        hitPlayer.hp = 0
-                        this.messageLogs.send({
-                            log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
-                            gameId : this.props.gameId
-                        })
-                    }
-                    let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
-                    this.playersSub.send({
-                        player : hitPlayer,
-                        gameId : this.props.gameId
-                    })
-                    this.setState({
-                        players : updatedPlayers
-                    })
-                }
+                })
+                this.playersSub.send({
+                    players : updatedPlayers,
+                    gameId : this.props.gameId
+                })
+                // this.setState({
+                //     players : updatedPlayers
+                // })
+                        
+            }
         }else{
-            let hitMonster = this.state.monsters.find(
-                monsterObj => 
-                    monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
-                    monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
-                    monsterObj.hp > 0
-                )
-            let hitPlayer = this.state.players.find(
-                playerObj => 
-                    playerObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
-                    playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
-                    playerObj.hp > 0
-                )
-                if(hitMonster){
-                    hitMonster.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitMonster.hp <= 0){
-                        hitMonster.hp = 0
-                        this.messageLogs.send({
-                            log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
+            if((this.getUserCharacter().direction === "right")){
+                let hitMonster = this.state.monsters.find(
+                    monsterObj => 
+                        monsterObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
+                        monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                        monsterObj.hp > 0
+                    )
+                let hitPlayer = this.state.players.find(
+                    playerObj => 
+                        playerObj.x_coordinate === this.getUserCharacter().x_coordinate+1 &&
+                        playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                        playerObj.hp > 0
+                    )
+                    if(hitMonster){
+                        hitMonster.hp -= this.getUserCharacter().character.attack_damage
+                        if (hitMonster.hp <= 0){
+                            hitMonster.hp = 0
+                            this.messageLogs.send({
+                                log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
+                                gameId : this.props.gameId
+                            })
+                        }
+                        let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
+                        this.playersSub.send({
+                            monsters : updatedMonsters,
                             gameId : this.props.gameId
                         })
-                    }
-                    let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
-                    this.playersSub.send({
-                        monsters : updatedMonsters,
-                        gameId : this.props.gameId
-                    })
-                    this.setState({
-                        monster : updatedMonsters
-                    })
-                }
-                if(hitPlayer){ 
-
-                    hitPlayer.hp -= this.getUserCharacter().character.attack_damage
-                    if (hitPlayer.hp <= 0){
-                        hitPlayer.hp = 0
-                        this.messageLogs.send({
-                            log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
-                            gameId : this.props.gameId
+                        this.setState({
+                            monster : updatedMonsters
                         })
                     }
-                    let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
-                    this.playersSub.send({
-                        player : hitPlayer,
-                        gameId : this.props.gameId
-                    })
-                    this.setState({
-                        players : updatedPlayers
-                    })
-                }
+                    if(hitPlayer){
+                        
+                        hitPlayer.hp -= this.getUserCharacter().character.attack_damage
+                        if (hitPlayer.hp <= 0){
+                            hitPlayer.hp = 0
+                            this.messageLogs.send({
+                                log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
+                                gameId : this.props.gameId
+                            })
+                        }
+                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        this.playersSub.send({
+                            player : hitPlayer,
+                            gameId : this.props.gameId
+                        })
+                        this.setState({
+                            players : updatedPlayers
+                        })
+                    }
+            }else{
+                let hitMonster = this.state.monsters.find(
+                    monsterObj => 
+                        monsterObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
+                        monsterObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                        monsterObj.hp > 0
+                    )
+                let hitPlayer = this.state.players.find(
+                    playerObj => 
+                        playerObj.x_coordinate === this.getUserCharacter().x_coordinate-1 &&
+                        playerObj.y_coordinate === this.getUserCharacter().y_coordinate &&
+                        playerObj.hp > 0
+                    )
+                    if(hitMonster){
+                        hitMonster.hp -= this.getUserCharacter().character.attack_damage
+                        if (hitMonster.hp <= 0){
+                            hitMonster.hp = 0
+                            this.messageLogs.send({
+                                log : `${this.getUserCharacter().character.name} killed ${hitMonster.monster.name}`,
+                                gameId : this.props.gameId
+                            })
+                        }
+                        let updatedMonsters = this.state.monsters.map(monsterObj => monsterObj.id === hitMonster.id ? hitMonster : monsterObj)
+                        this.playersSub.send({
+                            monsters : updatedMonsters,
+                            gameId : this.props.gameId
+                        })
+                        this.setState({
+                            monster : updatedMonsters
+                        })
+                    }
+                    if(hitPlayer){ 
+    
+                        hitPlayer.hp -= this.getUserCharacter().character.attack_damage
+                        if (hitPlayer.hp <= 0){
+                            hitPlayer.hp = 0
+                            this.messageLogs.send({
+                                log : `${this.getUserCharacter().character.name} killed ${hitPlayer.character.name}`,
+                                gameId : this.props.gameId
+                            })
+                        }
+                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        this.playersSub.send({
+                            player : hitPlayer,
+                            gameId : this.props.gameId
+                        })
+                        this.setState({
+                            players : updatedPlayers
+                        })
+                    }
+            }
         }
     }
     
@@ -430,7 +476,7 @@ class GameContainer extends React.Component{
             case "Digit1":
                 if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                     // this.skillOne()
-                    this.deBouncedSkill1()
+                    this.deBouncedSkillSwirl()
                     
                 }   
             break
