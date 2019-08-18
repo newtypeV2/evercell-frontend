@@ -261,3 +261,38 @@
     right: -1.5rem;
     z-index: 900;
   }
+
+  .--player{
+    position: absolute;
+    top: -.78rem;
+  }
+
+
+.--avatar{
+  position: relative;
+  z-index: 9000;
+}
+
+.--skill1-right{
+  animation: right-spin 400ms 1;
+}
+
+.--skill1-left{
+  animation: left-spin 400ms 1;
+}
+
+@keyframes left-spin {
+  from {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(-360deg)
+  }
+}
+
+@keyframes right-spin {
+  from {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(360deg)
+  }
+}

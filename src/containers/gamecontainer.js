@@ -100,7 +100,11 @@ class GameContainer extends React.Component{
             }
 
             if(data.animation){
-                this.daggerStab(data.animation);
+                if(data.animation && data.skill){
+                    this.skillOne(data.animation)
+                }else{
+                    this.daggerStab(data.animation);
+                }
             }
         }
         // Used for monster movement but not suitable for many monsters.
@@ -127,6 +131,16 @@ class GameContainer extends React.Component{
         //     })
         // }
       }
+
+
+    deBouncedSkill1 = _.debounce( () => { 
+        // this.attackHandler()
+        this.playersSub.send({
+            animation : this.getUserCharacter(),
+            skill : 1,
+            gameId : this.props.gameId
+        })
+     },130) 
 
     deBouncedAttack = _.debounce( () => { 
         this.attackHandler()
@@ -227,6 +241,20 @@ class GameContainer extends React.Component{
             })
         }
     }, 130)
+
+
+    skillOne = (characterObj) => {
+        let secondaryWeapon = document.getElementById(`${characterObj.character.name} secondaryweapon`)
+        let wholeModel = document.getElementById(`${characterObj.character.name}-model`) 
+        secondaryWeapon.classList.remove("hidden")
+        wholeModel.classList.add(`--skill1-${characterObj.direction}`)
+        setTimeout(()=>{
+            if(secondaryWeapon !== null){
+            secondaryWeapon.classList.add("hidden")
+            wholeModel.classList.remove(`--skill1-${characterObj.direction}`)
+        }
+        },400)
+    }
 
     daggerStab = (characterObj) => {
         if(characterObj.hp > 0 && document.getElementById(`${characterObj.character.name} weapon`)!== null){
@@ -371,38 +399,44 @@ class GameContainer extends React.Component{
     keyDownHandler = (e) => {
         switch(e.code){
             case "ArrowRight":
-            if(this.getUserCharacter().hp > 0){
+            if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                 this.deBouncedUpdateX(1,0,"right")
             }
             break;
 
             case "ArrowLeft":
-            if(this.getUserCharacter().hp > 0){
+            if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                 this.deBouncedUpdateX(-1,0,"left")
             }
             break;
 
             case "ArrowUp":
-            if(this.getUserCharacter().hp > 0){
+            if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                     this.deBouncedUpdateY(0,-1)
             }
             break;
 
             case "ArrowDown":
-            if(this.getUserCharacter().hp > 0){
+            if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                 this.deBouncedUpdateY(0,1)
             }                    
             break;
             case "Space":
-                if(this.getUserCharacter().hp > 0){
+                if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
                     this.deBouncedAttack()
                     
                 }   
-            
             break;
+            case "Digit1":
+                if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
+                    // this.skillOne()
+                    this.deBouncedSkill1()
+                    
+                }   
+            break
             //THIS IS JUST FOR TESTING PURPOSES
             case "KeyP":
-            if(this.getUserCharacter().hp > 0 && this.props.userObj.id === 1){
+            if(this.state.isLoading === false && this.getUserCharacter().hp > 0 && this.props.userObj.id === 1){
                     this.monsterMoveTest();
             }
             break;

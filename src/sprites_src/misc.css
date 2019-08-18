@@ -242,3 +242,25 @@
     transform: rotate(-90deg) scale(-1,1) scale(.7,.7);
     right: .9rem;
 }
+
+.skill.left{
+    /* display: inline-block; */
+    position: absolute;
+    top: -.5rem;
+    left: -.6rem;
+    z-index: 800;
+    transform: scale(.8,-.8) rotate(-90deg);
+}
+
+.skill.right{
+    /* display: inline-block; */
+    position: absolute;
+    top: -.5rem;
+    left: .9rem;
+    z-index: 800;
+    transform: scale(.8,.8) rotate(90deg)
+}
+
+.hidden{
+    display: none;
+}
