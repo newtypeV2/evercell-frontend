@@ -36,7 +36,8 @@
 
 #navbar{
   /* border: 2px dotted red; */
-  width: 70%;
+  position: relative;
+  /* width: 90%; */
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1rem;
@@ -52,18 +53,45 @@
   box-shadow: 5px 5px rgba(0, 0, 0, .8);
   color: lightgray;
   font-family: pixelated;
+  font-size: 1.5rem;
   background-color: rgba(0, 0, 0, .1);
   position: absolute;
   right: 15rem;
   top: 8rem;
-  padding: 2rem;
+  padding: 1rem;
   text-align: right;
 }
 
 .form-control{
-  margin: .25rem;
+  margin: 1rem;
 }
 
+#linkcontainer{
+  position: absolute;
+  top: -2rem;
+  right: .5rem;
+}
+
+.buttonlink{
+  margin: 5px;
+  font-size: 1.2rem;
+  color: white;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-family: pixelated;
+  cursor: pointer;
+}
+
+#credits{
+  font-family: pixelated;
+  color: lightgray;
+  text-align: left;
+  font-size: 1.5rem;
+  width: 70%;
+  position: relative;
+  margin: 0 auto;
+}
 
 @font-face {
   font-family: brushed;

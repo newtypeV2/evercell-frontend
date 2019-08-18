@@ -6,7 +6,8 @@ const PlayerCard = (props) => {
         { props.characterObj ?
         <div className="playercard">
             <div>
-                <span className={`${props.characterObj.character.race}-character-card`}></span><span className="cardnametag">{props.characterObj.character.name}</span>
+                <span className={`${props.characterObj.character.race}-character-card`}></span>
+                <span className="cardnametag">{props.characterObj.character.name}</span>
             </div>
             <div className="cardheartcontainer">
                 { props.characterObj.hp > 0 ?
