@@ -16,7 +16,8 @@ class GameContainer extends React.Component{
             map: {},
             description: null,
             messages:[],
-            logs: []
+            logs: [],
+            skillCD: {skillOne : true}
         }
     }
 
@@ -250,16 +251,18 @@ class GameContainer extends React.Component{
 
 
     skillSwirl = (characterObj) => {
-        let secondaryWeapon = document.getElementById(`${characterObj.character.name} secondaryweapon`)
-        let wholeModel = document.getElementById(`${characterObj.character.name}-model`) 
-        secondaryWeapon.classList.remove("hidden")
-        wholeModel.classList.add(`--skill1-${characterObj.direction}`)
-        setTimeout(()=>{
-            if(secondaryWeapon !== null){
-            secondaryWeapon.classList.add("hidden")
-            wholeModel.classList.remove(`--skill1-${characterObj.direction}`)
+        if(document.getElementById(`${characterObj.character.name} secondaryweapon`) !== null && document.getElementById(`${characterObj.character.name}-model`) !== null ){
+            let secondaryWeapon = document.getElementById(`${characterObj.character.name} secondaryweapon`)
+            let wholeModel = document.getElementById(`${characterObj.character.name}-model`) 
+            secondaryWeapon.classList.remove("hidden")
+            wholeModel.classList.add(`--skill1-${characterObj.direction}`)
+            setTimeout(()=>{
+                if(secondaryWeapon !== null){
+                secondaryWeapon.classList.add("hidden")
+                wholeModel.classList.remove(`--skill1-${characterObj.direction}`)
+            }
+            },500)
         }
-        },500)
     }
 
     daggerStab = (characterObj) => {
@@ -474,9 +477,20 @@ class GameContainer extends React.Component{
                 }   
             break;
             case "Digit1":
-                if(this.state.isLoading === false && this.getUserCharacter().hp > 0){
+                if(this.state.isLoading === false && this.state.skillCD.skillOne && this.getUserCharacter().hp > 0){
                     // this.skillOne()
                     this.deBouncedSkillSwirl()
+                    this.setState({
+                        skillCD : {...this.state.skillCD,skillOne : false}
+                    })
+                    console.log("Swirl is on CD")
+                    setTimeout(()=>
+                        {
+                            console.log("Swirl READY!")
+                            this.setState({
+                            skillCD : {...this.state.skillCD,skillOne : true}
+                            })
+                        },9000)
                     
                 }   
             break
@@ -518,6 +532,7 @@ class GameContainer extends React.Component{
                         characterObj = {this.getUserCharacter()}
                         logs = {this.state.logs}
                         respawnPlayer = {this.respawnPlayer}
+                        skillCD = {this.state.skillCD}
                     />
                     <ChatContainer 
                         characterObj = {this.getUserCharacter()}

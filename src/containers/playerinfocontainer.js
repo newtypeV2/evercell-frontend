@@ -31,6 +31,7 @@ class PlayerInfoContainer extends React.Component{
                 <PlayerCard 
                 characterObj = {this.props.characterObj}
                 onClickHandler = {this.props.respawnPlayer}
+                skillCD = {this.props.skillCD}
                 />
             </div> 
             : 
