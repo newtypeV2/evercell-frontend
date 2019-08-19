@@ -102,7 +102,7 @@ class GameContainer extends React.Component{
 
             if(data.animation){
                 if(data.animation && data.skill){
-                    this.skillSwirl(data.animation)
+                    this.skillSmash(data.animation)
                 }else{
                     this.daggerStab(data.animation);
                 }
@@ -140,8 +140,8 @@ class GameContainer extends React.Component{
       }
 
 
-    deBouncedSkillSwirl = _.debounce( () => { 
-        this.attackHandler("swirl")
+    deBouncedSkillSmash = _.debounce( () => { 
+        this.attackHandler("smash")
         this.playersSub.send({
             animation : this.getUserCharacter(),
             skill : 1,
@@ -250,7 +250,7 @@ class GameContainer extends React.Component{
     }, 130)
 
 
-    skillSwirl = (characterObj) => {
+    skillSmash = (characterObj) => {
         if(document.getElementById(`${characterObj.character.name} secondaryweapon`) !== null && document.getElementById(`${characterObj.character.name}-model`) !== null ){
             let secondaryWeapon = document.getElementById(`${characterObj.character.name} secondaryweapon`)
             let wholeModel = document.getElementById(`${characterObj.character.name}-model`) 
@@ -277,7 +277,7 @@ class GameContainer extends React.Component{
     }
 
     attackHandler = (skill) => {
-        if(skill === "swirl"){
+        if(skill === "smash"){
             let hitPlayers = this.state.players.filter(
                 playerObj => 
                     playerObj.x_coordinate <= this.getUserCharacter().x_coordinate+1 &&
@@ -479,14 +479,12 @@ class GameContainer extends React.Component{
             case "Digit1":
                 if(this.state.isLoading === false && this.state.skillCD.skillOne && this.getUserCharacter().hp > 0){
                     // this.skillOne()
-                    this.deBouncedSkillSwirl()
+                    this.deBouncedSkillSmash()
                     this.setState({
                         skillCD : {...this.state.skillCD,skillOne : false}
                     })
-                    console.log("Swirl is on CD")
                     setTimeout(()=>
                         {
-                            console.log("Swirl READY!")
                             this.setState({
                             skillCD : {...this.state.skillCD,skillOne : true}
                             })

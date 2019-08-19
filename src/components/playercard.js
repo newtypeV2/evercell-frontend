@@ -11,7 +11,7 @@ const PlayerCard = (props) => {
                 
             </div>
             <div className="skillcontainer">
-                <span>Swirl : {props.skillCD.skillOne ? "Ready" : "COOLDOWN"}</span>
+                <span>Smash : { props.skillCD.skillOne ? <span style={{color : "green"}}>"Ready"</span> : <span style={{color : "red"}}>"COOLDOWN"</span> }</span>
             </div>
             <div className="cardheartcontainer">
                 { props.characterObj.hp > 0 ?

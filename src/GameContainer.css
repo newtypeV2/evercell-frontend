@@ -1,7 +1,7 @@
 #screen{
     /* border: 1px double cyan; */
     width: 50%;
-    top: 1em;
+    top: .1em;
     display: inline-block;
     position: relative;
     margin: 0 auto 5em;
@@ -38,13 +38,13 @@ left margin is 100p */
 
 input[type=text] {
     position: relative;
-    width: 80%;
+    width: 60%;
 }
 
 #playerinfocontainer{
     font-family: pixelated;
     width: 70%; 
-    margin-top: 4.5rem;
+    margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -52,6 +52,15 @@ input[type=text] {
     border: 2px solid rgba(0, 0, 0, .9);
     box-shadow: 5px 5px rgba(0, 0, 0, .8);
 }
+
+.skillcontainer{
+    display: inline-block;
+    position: relative;
+    top: -.5rem;
+    color: lightgray;
+    font-size: 1.5rem;
+    z-index: 900;
+  }
 
 #logwindow{
     display: inline-block;

@@ -33,8 +33,9 @@ class App extends React.Component{
   logoutUser = () => {
     localStorage.clear()
     this.setState({
-      loggedInUser : {}
-    })
+      loggedInUser : {},
+      selectedGame: 0
+    },() => {window.location.reload()})
   }
   
   selectGame = (gameid) => {
@@ -51,7 +52,6 @@ class App extends React.Component{
         })
         .then(res => res.json())
         .then(userObj =>{
-          console.log("IN APP",userObj)
           this.loginUser(userObj)
         })
       }

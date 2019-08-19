@@ -262,15 +262,6 @@
     z-index: 900;
   }
 
-  .skillcontainer{
-    display: inline-block;
-    position: relative;
-    top: -.5rem;
-    color: lightgray;
-    font-size: 1rem;
-    z-index: 900;
-  }
-
   .--player{
     position: absolute;
     top: -.78rem;
