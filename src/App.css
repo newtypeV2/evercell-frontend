@@ -93,6 +93,22 @@
   margin: 0 auto;
 }
 
+#pagenotfound{
+  padding: 1rem;
+  position: relative;
+  font-family: pixelated;
+  color: lightgray;
+  font-size: 5rem;
+  margin: 5% auto 0;
+  width: 50%;
+  transform: scale(1,1);
+}
+
+.notfoundtext{
+  color: darkred;
+  font-size: 2rem;
+}
+
 @font-face {
   font-family: brushed;
   src: url(./assets/SlackerBrush.ttf);

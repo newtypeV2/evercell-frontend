@@ -483,12 +483,14 @@ class GameContainer extends React.Component{
                     this.setState({
                         skillCD : {...this.state.skillCD,skillOne : false}
                     })
+                    document.removeEventListener('keyup', this.keyDownHandler);
+                    setTimeout(()=>document.addEventListener('keyup', this.keyDownHandler),400)
                     setTimeout(()=>
                         {
                             this.setState({
                             skillCD : {...this.state.skillCD,skillOne : true}
                             })
-                        },9000)
+                        },3000)
                     
                 }   
             break

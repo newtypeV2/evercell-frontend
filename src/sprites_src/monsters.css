@@ -8,7 +8,6 @@
     background-position: -432px -172px;
     width: 16px;
     height: 20px;
-    transform: scale(-1,1);
     animation: masked_orc-run 0.4s steps(4) infinite;
 }
 
@@ -27,7 +26,6 @@
     background-position: -144px -320px;
     width: 32px;
     height: 32px;
-    transform: scale(-1,1);
     animation: ogre-run 0.4s steps(4) infinite;
 }
 
@@ -46,7 +44,6 @@
     background-position: -432px -80px;
     width: 16px;
     height: 16px;
-    transform: scale(-1,1);
     animation: skeleton-run 0.4s steps(4) infinite;
 }
 
@@ -58,3 +55,64 @@
   .monClass.mirror{
     transform: scale(1,1);
   }
+
+/* for page not found */
+
+
+.big_demon_404  {
+    display: inline-block;
+    left: 0;
+    bottom: 0;
+    z-index: 800;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -144px -364px;
+    width: 32px;
+    height: 36px;
+    transform: scale(1,1);
+    animation: big_demon_run 0.4s steps(4) infinite;
+}
+
+@keyframes big_demon_run {
+  from {background-position: -144px -364px;}
+  to {background-position: -272px -364px;}
+}
+
+.big_zombie_404  {
+    display: inline-block;
+    left: 0;
+    bottom: 0;
+    z-index: 800;
+    background-image: url("../assets/DungeonTileSet.png");
+    background-position: -144px -270px;
+    width: 32px;
+    height: 34px;
+    transform: scale(1,1);
+    animation: big_zombie_run 0.4s steps(4) infinite;
+}
+
+@keyframes big_zombie_run {
+  from {background-position: -144px -270px;}
+  to {background-position: -272px -270px;}
+}
+
+.big_ogre_404  {
+  display: inline-block;
+  left: 0;
+  bottom: 0;
+  z-index: 800;
+  background-image: url("../assets/DungeonTileSet.png");
+  background-position: -144px -320px;
+  width: 32px;
+  height: 32px;
+  transform: scale(1,1);
+  animation: big_ogre_run 0.4s steps(4) infinite;
+}
+
+@keyframes big_ogre_run {
+from {background-position: -144px -320px;}
+to {background-position: -272px -320px;}
+}
+
+.reverse{
+  transform: scale(-1,1)
+}

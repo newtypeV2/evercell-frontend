@@ -121,7 +121,7 @@ input[type=text] {
 .playercard{
     display: inline-block;
     position: relative;
-    width: 25%;
+    width: 30%;
     margin: 1rem;
     padding: .5rem;
 }
