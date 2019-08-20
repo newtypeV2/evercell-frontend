@@ -32,6 +32,8 @@ class App extends React.Component{
 
   logoutUser = () => {
     localStorage.clear()
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+
     this.setState({
       loggedInUser : {},
       selectedGame: 0

@@ -32,6 +32,7 @@ class Login extends React.Component{
             if(data.userinfo){
                 let userObj = JSON.parse(data.userinfo)
                 localStorage.setItem("jwt",data.token)
+                document.cookie = `token=${data.token}`
                 this.props.loginUser(userObj)
                 this.props.history.push("/")
             }else{
