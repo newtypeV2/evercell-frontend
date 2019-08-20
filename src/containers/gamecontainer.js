@@ -4,6 +4,8 @@ import PlayerInfoContainer from './playerinfocontainer';
 import ChatContainer from './chatcontainer';
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
+// import Sound from 'react-sound';
+// import BGM from '../assets/DarkThings2.mp3'
 import _ from 'lodash';
 
 class GameContainer extends React.Component{
@@ -539,6 +541,14 @@ class GameContainer extends React.Component{
                         messages = {this.state.messages}
                         sendMessage = {this.sendMessage}
                     />
+                    {/* <Sound
+                        url={BGM}
+                        playStatus={Sound.status.PLAYING}
+                        onLoading={this.handleSongLoading}
+                        onPlaying={this.handleSongPlaying}
+                        onFinishedPlaying={this.handleSongFinishedPlaying}
+                        loop={true}
+                    /> */}
                 </div>
             }
             </React.Fragment>
