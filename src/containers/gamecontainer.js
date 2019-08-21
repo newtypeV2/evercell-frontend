@@ -5,7 +5,7 @@ import ChatContainer from './chatcontainer';
 import { GAMES_API, WS_URL } from '../constants';
 import ActionCable from 'actioncable';
 // import Sound from 'react-sound';
-// import BGM from '../assets/DarkThings2.mp3'
+// import BGM from '../assets/FF9Battle2.mp3'
 import _ from 'lodash';
 
 class GameContainer extends React.Component{
@@ -64,13 +64,6 @@ class GameContainer extends React.Component{
             received: this.handleMessageLogsData
         })
 
-        // this.monstersSub = cable.subscriptions.create('GameMonsterChannel', {
-        //     received: this.handleReceivedMonsterData
-        // })
-        
-        // this.animationsSub = cable.subscriptions.create('AnimationChannel', {
-        //     received: this.handleReceivedAnimationData
-        // })
     }
 
     handleMessageLogsData = (data) => {
@@ -163,7 +156,6 @@ class GameContainer extends React.Component{
         let otherPlayers = this.state.players.filter(playerObj => playerObj.character.user_id !== this.props.userObj.id)    
         let updatePlayers = this.state.players.map(playerObj => {
             if(playerObj.character.user_id === this.props.userObj.id){
-                // console.log(playerObj)
                 //x.coordinate+1 to see if there's more room right.
                 if(
                     //Map limit condition check.
@@ -183,7 +175,6 @@ class GameContainer extends React.Component{
                     )) && 
                     this.getUserCharacter().direction === direction
                     //Turn back condition check.
-                    // !this.getUserCharacter().character.race.includes("mirror")
                 ){
                     playerObj.x_coordinate+=x_offset
                 }
@@ -201,10 +192,11 @@ class GameContainer extends React.Component{
                 player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
                 gameId : this.props.gameId
             })
-            
-            this.setState({
-                players: updatePlayers
-            })
+
+            // a set state is on the received data function.
+            // this.setState({
+            //     players: updatePlayers
+            // })
         }
     }, 130)
 
@@ -245,9 +237,10 @@ class GameContainer extends React.Component{
                 player : updatePlayers.find(characterInstObj => characterInstObj.character.user_id === this.props.userObj.id),
                 gameId : this.props.gameId
             })
-        this.setState({
-                players: updatePlayers
-            })
+        //a set state is on the received data.
+        // this.setState({
+        //         players: updatePlayers
+        //     })
         }
     }, 130)
 
@@ -313,6 +306,7 @@ class GameContainer extends React.Component{
                     players : updatedPlayers,
                     gameId : this.props.gameId
                 })
+                //* redundant setState since there's already on on the onReceive function *
                 // this.setState({
                 //     players : updatedPlayers
                 // })
@@ -360,14 +354,15 @@ class GameContainer extends React.Component{
                                 gameId : this.props.gameId
                             })
                         }
-                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        // let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                         this.playersSub.send({
                             player : hitPlayer,
                             gameId : this.props.gameId
                         })
-                        this.setState({
-                            players : updatedPlayers
-                        })
+                        //* redundant setState since there's already on on the onReceive function *
+                        // this.setState({
+                        //     players : updatedPlayers
+                        // })
                     }
             }else{
                 let hitMonster = this.state.monsters.find(
@@ -410,14 +405,15 @@ class GameContainer extends React.Component{
                                 gameId : this.props.gameId
                             })
                         }
-                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        // let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                         this.playersSub.send({
                             player : hitPlayer,
                             gameId : this.props.gameId
                         })
-                        this.setState({
-                            players : updatedPlayers
-                        })
+                        //* redundant setState since there's already on on the onReceive function *
+                        // this.setState({
+                        //     players : updatedPlayers
+                        // })
                     }
             }
         }
@@ -547,6 +543,7 @@ class GameContainer extends React.Component{
                         onLoading={this.handleSongLoading}
                         onPlaying={this.handleSongPlaying}
                         onFinishedPlaying={this.handleSongFinishedPlaying}
+                        volume={5}
                         loop={true}
                     /> */}
                 </div>
