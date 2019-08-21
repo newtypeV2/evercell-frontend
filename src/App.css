@@ -48,18 +48,33 @@
   text-align: center;
 }
 
+.loginContainer{
+  display: inline-block;
+  position: relative;
+  width: 90%;
+}
+
+.carouselcontainer{
+  position: relative;
+  display: inline-block;
+  padding: 2rem;
+}
+.carousel.carousel-slider{
+    position: relative;
+    display: inline-block
+}
+
 #loginForm{
+  display: inline-block;
   border: 1px solid rgba(0, 0, 0, .5);
   box-shadow: 5px 5px rgba(0, 0, 0, .8);
   color: lightgray;
   font-family: pixelated;
   font-size: 1.5rem;
   background-color: rgba(0, 0, 0, .1);
-  position: absolute;
-  right: 15rem;
-  top: 8rem;
-  padding: 1rem;
-  text-align: right;
+  position: relative;
+  padding: 3rem;
+  text-align: center;
 }
 
 .form-control{
