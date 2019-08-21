@@ -12,14 +12,14 @@ const Credits = () => {
             <p>
                 Font credits goes to: Daniel Linsenn
                 <br></br>
-                <a href="https://managore.itch.io/">https://managore.itch.io/</a>
+                -<a href="https://managore.itch.io/">https://managore.itch.io/</a>
             </p>
             <p>
-            Sprite credits goes to: 0x72 :
-            <br></br>
-
-            <a href="https://0x72.itch.io/dungeontileset-ii">https://0x72.itch.io/dungeontileset-ii</a>
+                Sprite credits goes to: 0x72 :
+                <br></br>
+                -<a href="https://0x72.itch.io/dungeontileset-ii">https://0x72.itch.io/dungeontileset-ii</a>
             </p>
+
         </div>
     )
 }

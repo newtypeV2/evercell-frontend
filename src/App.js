@@ -5,6 +5,7 @@ import GameContainer from './containers/gamecontainer';
 import Login from './components/login';
 import PageNotFound from './components/pagenotfound';
 import CharacterContainer from './containers/charactercontainer';
+import HowToPlay from './components/howtoplay';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { TOKEN_URL } from './constants';
 import './App.css';
@@ -13,6 +14,7 @@ import './sprites_src/tiles.css';
 import './sprites_src/monsters.css';
 import './sprites_src/misc.css';
 import './GameContainer.css';
+
 
 class App extends React.Component{
   constructor(props){
@@ -104,6 +106,7 @@ class App extends React.Component{
           } 
         />
         <Route exact path="/credits" component={Credits} />
+        <Route exact path="/howtoplay" component={HowToPlay} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
