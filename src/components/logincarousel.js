@@ -3,20 +3,21 @@ import { Carousel } from 'react-responsive-carousel';
 import evercellCarousel1 from '../assets/evercellCarousel1.png'
 import evercellCarousel2 from '../assets/evercellCarousel2.png'
 import evercellCarousel3 from '../assets/evercellCarousel3.png'
+import evercellCarousel4 from '../assets/evercellCarousel4.png'
  
 class LoginCarousel extends Component {
     render() {
         return (
             <Carousel className="carouselcontainer"
-                width="30%"
+                width="50%"
                 showArrows={false}
                 showStatus={false}
                 showIndicators={false}
                 showThumbs={false}
                 infiniteLoop={true}
                 autoPlay={true}
-                interval={7000}
-                transitionTime={900}
+                interval={4000}
+                transitionTime={1000}
                 swipeable={false}
             >
                 <div>
@@ -27,6 +28,9 @@ class LoginCarousel extends Component {
                 </div>
                 <div>
                     <img src={evercellCarousel3} alt="page3"/>
+                </div>
+                <div>
+                    <img src={evercellCarousel4} alt="page4"/>
                 </div>
             </Carousel>
         );

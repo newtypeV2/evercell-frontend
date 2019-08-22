@@ -61,7 +61,8 @@
 }
 .carousel.carousel-slider{
     position: relative;
-    display: inline-block
+    display: inline-block;
+    width: 40%;
 }
 
 #loginForm{
