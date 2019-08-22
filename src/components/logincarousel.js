@@ -9,14 +9,14 @@ class LoginCarousel extends Component {
     render() {
         return (
             <Carousel className="carouselcontainer"
-                width="50%"
-                showArrows={false}
+                width="60%"
+                showArrows={true}
                 showStatus={false}
-                showIndicators={false}
+                showIndicators={true}
                 showThumbs={false}
                 infiniteLoop={true}
                 autoPlay={true}
-                interval={4000}
+                interval={5000}
                 transitionTime={1000}
                 swipeable={false}
             >
