@@ -194,9 +194,9 @@ class GameContainer extends React.Component{
             })
 
             // a set state is on the received data function.
-            // this.setState({
-            //     players: updatePlayers
-            // })
+            this.setState({
+                players: updatePlayers
+            })
         }
     }, 130)
 
@@ -238,9 +238,9 @@ class GameContainer extends React.Component{
                 gameId : this.props.gameId
             })
         //a set state is on the received data.
-        // this.setState({
-        //         players: updatePlayers
-        //     })
+        this.setState({
+                players: updatePlayers
+            })
         }
     }, 130)
 
@@ -307,9 +307,9 @@ class GameContainer extends React.Component{
                     gameId : this.props.gameId
                 })
                 //* redundant setState since there's already on on the onReceive function *
-                // this.setState({
-                //     players : updatedPlayers
-                // })
+                this.setState({
+                    players : updatedPlayers
+                })
                         
             }
         }else{
@@ -354,15 +354,15 @@ class GameContainer extends React.Component{
                                 gameId : this.props.gameId
                             })
                         }
-                        // let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                         this.playersSub.send({
                             player : hitPlayer,
                             gameId : this.props.gameId
                         })
                         //* redundant setState since there's already on on the onReceive function *
-                        // this.setState({
-                        //     players : updatedPlayers
-                        // })
+                        this.setState({
+                            players : updatedPlayers
+                        })
                     }
             }else{
                 let hitMonster = this.state.monsters.find(
@@ -405,15 +405,15 @@ class GameContainer extends React.Component{
                                 gameId : this.props.gameId
                             })
                         }
-                        // let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
+                        let updatedPlayers = this.state.players.map(playerobj => playerobj.id === hitPlayer.id ? hitPlayer : playerobj)
                         this.playersSub.send({
                             player : hitPlayer,
                             gameId : this.props.gameId
                         })
                         //* redundant setState since there's already on on the onReceive function *
-                        // this.setState({
-                        //     players : updatedPlayers
-                        // })
+                        this.setState({
+                            players : updatedPlayers
+                        })
                     }
             }
         }
