@@ -5,7 +5,6 @@
 // export const API = 'http://localhost:5000/'
 
     //localLAN
-// export const API = `http://${window.location.hostname}:5000/`
 export const API = `http://${window.location.hostname}:5000/`
 
     //deployment
@@ -14,11 +13,11 @@ export const API = `http://${window.location.hostname}:5000/`
     //WS_URL localhost
 // export const WS_URL = 'ws://localhost:5000/cable'
 
-    //flexible WS_URL
-// export const WS_URL = `ws://${window.location.hostname}:5000/cable`
+    //ActionCable - flexible WS_URL
+export const WS_URL = `ws://${window.location.hostname}:5000/cable`
 
 //AnyCable - port 3500
-export const WS_URL = `ws://${window.location.hostname}:3500/cable`
+// export const WS_URL = `ws://${window.location.hostname}:3500/cable`
 
     //hardset WS_URL
 // export const WS_URL = "ws://10.113.106.139:3500/cable"
