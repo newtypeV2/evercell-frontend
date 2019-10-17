@@ -18,7 +18,7 @@ export const API = 'https://evercell-gg.herokuapp.com/'
 // export const WS_URL = `ws://${window.location.hostname}:5000/cable`
 
     //deployment
-export const WS_URL = 'ws://evercell-gg.herokuapp.com/cable'
+export const WS_URL = 'ws://evercell-gg.herokuapp.com/'
 
 //AnyCable - port 3500
 // export const WS_URL = `ws://${window.location.hostname}:3500/cable`
