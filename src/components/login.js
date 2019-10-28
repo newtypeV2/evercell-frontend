@@ -59,6 +59,11 @@ class Login extends React.Component{
                     <Button variant="primary" type="submit" onClick={this.loginHandler} onSubmit={this.loginHandler}>Submit</Button>
                     </Form>
                 </div>
+                <div id='loginInfo'>
+                    <div>4 Accounts are available for use:</div>
+                    <div>Username: Player1-4, example: Player1</div>
+                    <div>Password: password</div>
+                </div>
                 <LoginCarousel/>
                </div>
            )

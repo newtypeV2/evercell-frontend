@@ -78,6 +78,20 @@
   text-align: center;
 }
 
+#loginInfo{
+  /* border: 2px dotted red; */
+  position: relative;
+  /* width: 90%; */
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-bottom: 1rem; */
+  padding: 1rem;
+  font-family: pixelated;
+  font-size: 1.5rem;
+  color: lightgray;
+  text-align: center;
+}
+
 .form-control{
   margin: 1rem;
 }
